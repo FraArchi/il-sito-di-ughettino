@@ -1,2 +1,26 @@
-# il-sito-di-ughettino
-"Il Blog di Ughettino" Questo repository contiene il codice sorgente per "Il Blog di Ughettino", un sito web semplice e accattivante dedicato al meraviglioso mondo dell'HTML semantico, visto attraverso gli occhi di un grande fan di Ughettino, il secondo cane più bello del mondo!
+# Il Sito di Ughettino 🌟
+
+![Preview]
+
+**Visita il sito live:** [https://fraarchi.github.io/il-sito-di-ughettino/](https://fraarchi.github.io/il-sito-di-ughettino/)
+
+---
+
+## 📢 Descrizione
+
+Questo progetto è il sito web personale di *Ughettino*, una pagina statica semplice, elegante e funzionale, costruita interamente in HTML.  
+Perfetta come punto di partenza per chi vuole imparare a pubblicare siti web gratuitamente usando GitHub Pages.
+
+---
+
+## 🚀 Caratteristiche principali
+
+- **Sito statico e leggero**: solo HTML puro, nessuna dipendenza esterna  
+- **Hosting gratuito**: pubblicato tramite GitHub Pages  
+- **Struttura semplice e chiara**: facile da modificare e personalizzare  
+- **Accessibile ovunque**: il sito è online 24/7, raggiungibile all’URL GitHub Pages sopra
+
+---
+
+
+

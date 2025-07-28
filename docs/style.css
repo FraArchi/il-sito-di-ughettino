@@ -40,8 +40,8 @@ nav a:hover {
   color: #d35400; /* arancione al passaggio */
 }
 img.ridotta {
-  width: 200px;
-  height: auto;
+  width: 500px; /* o il valore desiderato in pixel */
+      height: auto; /* mantiene le proporzioni */
   border-radius: 12px;
   box-shadow: 0 2px 8px #8884;
   display: block;
@@ -94,11 +94,17 @@ section h1, section h2, section p {
 }
 .scuro {
   background: rgba(34, 34, 34, 0.85); /* sfondo scuro semi-trasparente */
-  color: #f5e9c6; /* testo chiaro */
-  padding: 24px;
+  color: #fff;
+  padding: 2em;
+  position: relative;
   border-radius: 14px;
   box-shadow: 0 2px 16px #2228;
   margin-bottom: 32px;
+}
+.scuro > div {
+  background: rgba(0,0,0,0.5);
+  padding: 1em;
+  border-radius: 10px;
 }
 .scuro h1, .scuro h2 {
   color: #ffd59e; /* titoli chiari */
@@ -131,4 +137,54 @@ section h1, section h2, section p {
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 2px 16px #2228;
+}
+.ugo-bg {
+  position: relative;
+  background-image: url('Ugo.jpeg'); /* usa l'immagine che preferisci */
+  background-size: cover;
+  background-position: center;
+  padding: 40px 0;
+  border-radius: 16px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 16px #2224;
+}
+
+.ugo-overlay {
+  background: rgba(255,255,255,0.92); /* overlay chiaro */
+  color: #2d1c0f; /* testo marrone scuro */
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 32px 24px;
+  border-radius: 14px;
+  box-shadow: 0 4px 24px #2223;
+  text-shadow: 0 1px 2px #fff8;
+}
+
+.ugo-overlay h1, .ugo-overlay h2 {
+  color: #b97a56; /* titoli sabbia */
+  text-shadow: 0 2px 8px #fff7;
+}
+.ugo-header {
+  background: rgba(255,255,255,0.93); /* sfondo chiaro semi-trasparente */
+  color: #2d1c0f; /* testo marrone scuro */
+  text-align: center;
+  padding: 32px 0 18px 0;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px #2222;
+  margin-bottom: 24px;
+  text-shadow: 0 1px 2px #fff8;
+}
+
+.ugo-header h1 {
+  color: #b97a56; /* sabbia caldo */
+  font-size: 2.4em;
+  margin-bottom: 8px;
+  text-shadow: 0 2px 8px #fff7;
+}
+
+.ugo-header p {
+  color: #3a2c1a;
+  font-size: 1.15em;
+  margin-top: 0;
+  text-shadow: 0 1px 2px #fff9;
 }

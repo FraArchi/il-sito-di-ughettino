@@ -1,0 +1,4 @@
+img.ridotta {
+      width: 500px; /* o il valore desiderato in pixel */
+      height: auto; /* mantiene le proporzioni */
+    }

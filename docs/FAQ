@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="style.css" />
+    <title>FAQ</title>
+  </head>
+  <body>
+
+    <h1 class="faq-header">Domande frequenti su Ugo 🐾</h1>
+    <div class="faq-container">
+      <div class="faq active">
+        <h3 class="faq-title">Perché Ugo ama così tanto le coccole?</h3>
+        <p class="faq-text">Perché le coccole sono il suo linguaggio d’amore preferito!</p>
+        <button class="faq-toggle"><i class="fas fa-chevron-down"></i><i class="fas fa-times"></i></button>
+      </div>
+      <div class="faq">
+        <h3 class="faq-title">Qual è il gioco preferito di Ugo?</h3>
+        <p class="faq-text">Ugo adora rincorrere la palla e giocare a nascondino nel prato.</p>
+        <button class="faq-toggle"><i class="fas fa-chevron-down"></i><i class="fas fa-times"></i></button>
+      </div>
+      <div class="faq">
+        <h3 class="faq-title">Ugo capisce quando fingo di lanciare la palla?</h3>
+        <p class="faq-text">Certo! Ugo è un vero filosofo: capisce tutto, ma si diverte lo stesso.</p>
+        <button class="faq-toggle"><i class="fas fa-chevron-down"></i><i class="fas fa-times"></i></button>
+      </div>
+      <div class="faq">
+        <h3 class="faq-title">Come fa Ugo a essere sempre felice?</h3>
+        <p class="faq-text">Ugo trova la felicità nelle piccole cose: una passeggiata, un biscotto, una carezza.</p>
+        <button class="faq-toggle"><i class="fas fa-chevron-down"></i><i class="fas fa-times"></i></button>
+      </div>
+      <div class="faq">
+        <h3 class="faq-title">Ugo ha amici?</h3>
+        <p class="faq-text">Sì! Ugo ha tanti amici pelosi e umani, e ogni giorno ne conosce di nuovi.</p>
+        <button class="faq-toggle"><i class="fas fa-chevron-down"></i><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

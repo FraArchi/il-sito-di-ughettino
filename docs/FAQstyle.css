@@ -5,6 +5,10 @@ body {
   color: #3a2c1a;
   margin: 0;
   padding: 0;
+  background-image: url('ugo-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
 }
 
 .faq-header {

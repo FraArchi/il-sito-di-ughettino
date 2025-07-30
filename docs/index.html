@@ -105,8 +105,30 @@
 
 
 
+  <div id="cookie-banner" style="position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#fff8f0;color:#7c4a1e;padding:18px 32px;border-radius:14px;box-shadow:0 2px 12px #b97a5633;z-index:9999;display:none;font-family:'Segoe UI',Arial,sans-serif;font-size:1.08em;">
+    Questo sito usa i cookie per migliorare l'esperienza utente. <button id="cookie-accept" style="background:#b97a56;color:#fff;border:none;border-radius:8px;padding:8px 18px;margin-left:18px;cursor:pointer;font-weight:bold;">Accetta</button>
+  </div>
   <script src="cookie1.js"></script>
   <script src="cookie2.js"></script>
+  <script>
+    // Mostra banner se non accettato
+    function setCookie(name, value, days) {
+      const expires = new Date(Date.now() + days * 864e5).toUTCString();
+      document.cookie = name + "=" + encodeURIComponent(value) + "; expires=" + expires + "; path=/; SameSite=Lax; Secure";
+    }
+    function getCookie(name) {
+      const value = "; " + document.cookie;
+      const parts = value.split("; " + name + "=");
+      if (parts.length === 2) return decodeURIComponent(parts.pop().split(";").shift());
+    }
+    if (!getCookie('cookie_consent')) {
+      document.getElementById('cookie-banner').style.display = 'block';
+    }
+    document.getElementById('cookie-accept').onclick = function() {
+      setCookie('cookie_consent', 'accepted', 365);
+      document.getElementById('cookie-banner').style.display = 'none';
+    };
+  </script>
 </body>
 </html>
 

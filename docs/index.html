@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="style.css">
@@ -10,22 +11,28 @@
     }
   </style>
 
-  <!-- Google Tag + Consent Mode -->
+  <!-- Google tag (gtag.js) con Consent Mode -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-M7R4KXNLWL"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
 
-    // 1. Default: tutto bloccato
+    // Default: tutto negato finché l'utente non decide
     gtag('js', new Date());
     gtag('consent', 'default', {
       'ad_storage': 'denied',
       'analytics_storage': 'denied'
     });
 
-    // 2. Config verrà lanciato *solo dopo* il consenso (vedi più sotto nello script)
+    // Config base: tracking con privacy se consenso mancante
+    gtag('config', 'G-M7R4KXNLWL', {
+      'anonymize_ip': true,
+      'allow_ad_personalization_signals': false
+    });
   </script>
 </head>
+
+
 
 <body>
   <header class="ugo-header">

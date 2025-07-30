@@ -1,4 +1,3 @@
-img.ridotta {
-      width: 500px; /* o il valore desiderato in pixel */
-      height: auto; /* mantiene le proporzioni */
-    }
+git add .
+git commit -m "aggiorna i cambiamenti cookie"
+git push  

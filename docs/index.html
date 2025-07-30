@@ -135,9 +135,11 @@
     document.getElementById('cookie-accept').onclick = function() {
       setCookie('cookie_consent', 'accepted', 365);
       document.getElementById('cookie-banner').style.display = 'none';
-      if (typeof gtag === 'function') {
-        gtag('consent', 'update', { analytics_storage: 'granted' });
-      }
+    if (typeof gtag === 'function') {
+  gtag('consent', 'update', { analytics_storage: 'granted' });
+  gtag('config', 'G-M7R4KXNLWL');
+}
+
     };
   </script>
 </body>

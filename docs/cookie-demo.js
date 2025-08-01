@@ -2,7 +2,7 @@
 // Gestione cookie personalizzati con JSON
 
 // Crea un cookie (nome, oggetto, durata in ore)
-function setCookie(name, dataObj, hours = 1) {
+function setCookie(name, dataObj, hours = 100) {
   const jsonData = encodeURIComponent(JSON.stringify(dataObj));
   const maxAge = hours * 3600;
   document.cookie = `${name}=${jsonData}; path=/; max-age=${maxAge}`;

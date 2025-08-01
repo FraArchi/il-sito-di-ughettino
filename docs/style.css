@@ -41,11 +41,17 @@ nav a:hover {
 }
 img.ridotta {
   width: 500px; /* o il valore desiderato in pixel */
-      height: auto; /* mantiene le proporzioni */
+  height: auto; /* mantiene le proporzioni */
   border-radius: 12px;
   box-shadow: 0 2px 8px #8884;
   display: block;
   margin: 20px auto;
+  transition: transform 0.3s ease;
+}
+
+img.ridotta:hover, img.ridotta:focus {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
 }
 article, section {
   margin-bottom: 32px;
@@ -188,3 +194,4 @@ section h1, section h2, section p {
   margin-top: 0;
   text-shadow: 0 1px 2px #fff9;
 }
+

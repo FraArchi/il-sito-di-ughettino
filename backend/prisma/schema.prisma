@@ -58,6 +58,7 @@ model User {
   photoBoothItems PhotoBoothItem[]
   sessions        UserSession[]
   analytics       UserAnalytics[]
+  conversations   Conversation[]
   
   @@map("users")
 }
@@ -382,6 +383,30 @@ model SystemSettings {
   @@map("system_settings")
 }
 
+// Ugo AI Conversation System
+model Conversation {
+  id            String   @id @default(cuid())
+  sessionId     String   @default("default")
+  userMessage   String
+  ugoResponse   String
+  mood          String   @default("happy")
+  sentiment     String   @default("neutral")
+  intent        String   @default("general")
+  entities      Json?    // Extracted entities as JSON
+  topics        Json?    // Conversation topics as JSON array
+  rating        Int?     // User rating 1-5
+  metadata      Json?    // Additional metadata
+  createdAt     DateTime @default(now())
+  
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  
+  @@index([userId, createdAt])
+  @@index([userId, sessionId])
+  @@index([rating])
+  @@map("conversations")
+}
+
 // Enums
 enum PostStatus {
   DRAFT
@@ -404,4 +429,5 @@ enum NotificationType {
   QUIZ_AVAILABLE
   SYSTEM_NOTIFICATION
   REMINDER
+  UGO_AI_MESSAGE
 }

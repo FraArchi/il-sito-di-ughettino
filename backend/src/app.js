@@ -19,6 +19,7 @@ const photoBoothRoutes = require('./routes/photoBoothRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const ugoAIRoutes = require('./routes/ugoAI');
 
 // Import middleware
 const errorHandler = require('./middleware/errorHandler');
@@ -132,6 +133,7 @@ app.use('/api/photo-booth', photoBoothRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/ugo-ai', ugoAIRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {

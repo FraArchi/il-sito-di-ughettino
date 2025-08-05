@@ -3,6 +3,9 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Il Meraviglioso Mondo di Ugo - Home</title>
+  <meta name="description" content="Scopri le avventure, le foto e i pensieri filosofici di Ugo, un Golden Retriever speciale. Un sito per tutti gli amanti dei cani.">
   <link rel="stylesheet" href="style.css">
 
 
@@ -93,14 +96,17 @@
       <p>Usiamo tag come &lt;main&gt;, &lt;section&gt;, &lt;article&gt; per dare significato ai contenuti.</p>
 
       <figure>
-        <img src="Ugo.jpeg" alt="Ugo, il cane che ama l'HTML" width="300" class="ridotta">
+        <picture>
+          <source srcset="Ugo.webp" type="image/webp">
+          <img src="Ugo.jpeg" alt="Ugo, il cane che ama l'HTML" width="300" height="400" class="ridotta" loading="lazy">
+        </picture>
         <figcaption>Ugo riflette sul significato dei tag semantici</figcaption>
       </figure>
 
       <p>L'HTML semantico aiuta anche i lettori con disabilità visive...</p>
     </section>
 
-    <div class="scuro" style="background-image: url('nome-immagine.jpg'); background-size: cover; background-position: center; color: #fff; padding: 2em;">
+    <div class="scuro" style="background-image: url('golden-con-sfondo-nero.jpg'); background-size: cover; background-position: center; color: #fff; padding: 2em;">
       <div style="background: rgba(0,0,0,0.5); padding: 1em; border-radius: 10px;">
         <h1>Perché Ugo è così bello?</h1>
         <p>Ugo è così bello perché è autentico, vero, puro.</p>
@@ -114,10 +120,63 @@
       </div>
     </div>
 
+    <!-- Sezione Chi Sono -->
+    <section id="chi-sono">
+      <h2>Chi c'è dietro al sito?</h2>
+      <div class="chi-sono-content">
+        <picture>
+          <source srcset="ugo-bg.webp" type="image/webp">
+          <img src="ugo-bg.jpg" alt="Francesco Archidiacono con Ugo" loading="lazy" class="chi-sono-img">
+        </picture>
+        <div>
+          <h3>Francesco & Ugo: Una storia di amicizia</h3>
+          <p>Ciao! Sono Francesco, un appassionato di tecnologia e da qualche anno, il compagno di avventure di Ugo. Questo sito è nato per condividere la gioia che un cane come lui sa portare nella vita di tutti i giorni. Qui troverete le sue (e le nostre) storie, i suoi pensieri profondi e, spero, un po' di ispirazione.</p>
+          <p>Il nostro obiettivo? Creare una piccola community di amanti dei cani e celebrare i nostri amici a quattro zampe.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Newsletter CTA -->
+    <section id="newsletter" class="cta-section">
+      <h2>Le Avventure di Ugo, ogni settimana!</h2>
+      <p>Iscriviti alla nostra newsletter per non perdere gli ultimi post, foto esclusive e consigli per il tuo cane.</p>
+      <form id="newsletter-form">
+        <input type="email" name="email" placeholder="La tua email migliore" required aria-label="Indirizzo email per la newsletter">
+        <button type="submit">Iscrivimi!</button>
+      </form>
+      <p id="newsletter-feedback" class="feedback-message"></p>
+    </section>
+
+    <!-- Ugo Quiz CTA -->
+    <section id="quiz-cta" class="cta-section">
+      <h2>Quanto conosci Ugo?</h2>
+      <p>Mettiti alla prova con il nostro quiz e scopri se sei un vero fan di Ugo!</p>
+      <a href="quiz.html" class="button-cta">Inizia il Quiz!</a>
+    </section>
+
+    <!-- Photo Booth CTA -->
+    <section id="photobooth-cta" class="cta-section">
+      <h2>Crea un capolavoro con il tuo cane!</h2>
+      <p>Usa il nostro Photo Booth per aggiungere cornici e adesivi a tema Ugo alle foto del tuo amico a quattro zampe.</p>
+      <a href="photobooth.html" class="button-cta">Prova il Photo Booth!</a>
+    </section>
+
+    <!-- Sezione Commenti Disqus -->
+    <section id="commenti">
+      <h2>Dite la vostra!</h2>
+      <div id="disqus_thread"></div>
+    </section>
     
     <footer>
-      <p>&copy; 2025 Francesco Archidiacono</p>
-      <p>seguimi su instagram: @fra.archi</p>
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="chi-siamo.html">Chi Siamo</a>
+          <a href="contatti.html">Contatti</a>
+          <a href="privacy.html">Privacy Policy</a>
+        </div>
+        <p>&copy; 2025 Il Meraviglioso Mondo di Ugo. Creato con ❤️ da Francesco Archidiacono.</p>
+        <p>Seguimi su Instagram: <a href="https://instagram.com/fra.archi" target="_blank" rel="noopener noreferrer">@fra.archi</a></p>
+      </div>
     </footer>
   </main>
 
@@ -181,5 +240,33 @@
     });
   </script>
 
+  <!-- Disqus Script -->
+  <script>
+    var disqus_config = function () {
+      this.page.url = window.location.href;
+      this.page.identifier = window.location.pathname;
+    };
+    (function() {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://il-sito-di-ughettino.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+  <!-- Newsletter Form Script -->
+  <script>
+    document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const feedback = document.getElementById('newsletter-feedback');
+      feedback.textContent = 'Grazie per esserti iscritto!';
+      feedback.style.color = 'green';
+      setTimeout(() => {
+        feedback.textContent = '';
+      }, 3000);
+      this.reset();
+    });
+  </script>
 </body>
 </html>

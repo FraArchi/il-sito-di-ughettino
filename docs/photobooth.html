@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ugo's Photo Booth</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="photobooth-style.css">
+</head>
+<body>
+    <header class="header-sticky">
+        <div class="header-content">
+            <a href="index.html" class="logo">🐾 Ugo</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="photobooth.html" class="active">Photo Booth</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <h1>Ugo's Photo Booth</h1>
+        <div class="photobooth-container">
+            <div class="controls">
+                <input type="file" id="image-upload" accept="image/*">
+                <div id="stickers">
+                    <!-- Stickers verranno aggiunti qui da JS -->
+                </div>
+            </div>
+            <canvas id="canvas"></canvas>
+            <button id="download-btn">Scarica Immagine</button>
+        </div>
+    </main>
+
+    <script src="photobooth.js"></script>
+</body>
+</html>

@@ -1,0 +1,407 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String    @id @default(cuid())
+  email           String    @unique
+  username        String    @unique
+  password        String?   // Nullable for OAuth users
+  firstName       String?
+  lastName        String?
+  avatar          String?
+  bio             String?
+  dateOfBirth     DateTime?
+  dogName         String?   // Nome del proprio cane
+  dogBreed        String?   // Razza del cane
+  dogPhoto        String?   // Foto del cane
+  isVerified      Boolean   @default(false)
+  isAdmin         Boolean   @default(false)
+  isActive        Boolean   @default(true)
+  points          Int       @default(0)
+  streak          Int       @default(0)
+  level           Int       @default(1)
+  lastLogin       DateTime?
+  lastActivity    DateTime?
+  emailVerificationToken String?
+  passwordResetToken     String?
+  passwordResetExpires   DateTime?
+  twoFactorSecret        String?
+  twoFactorEnabled       Boolean   @default(false)
+  privacySettings        Json?     // { profilePublic: boolean, showEmail: boolean, etc. }
+  notificationSettings   Json?     // Email, push, in-app preferences
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  // OAuth
+  googleId        String?   @unique
+  facebookId      String?   @unique
+  
+  // Relations
+  posts           Post[]
+  comments        Comment[]
+  likes           Like[]
+  shares          Share[]
+  achievements    UserAchievement[]
+  quizAttempts    QuizAttempt[]
+  notifications   Notification[]
+  followers       Follow[]  @relation("UserFollowers")
+  following       Follow[]  @relation("UserFollowing")
+  photoBoothItems PhotoBoothItem[]
+  sessions        UserSession[]
+  analytics       UserAnalytics[]
+  
+  @@map("users")
+}
+
+model UserSession {
+  id           String   @id @default(cuid())
+  userId       String
+  token        String   @unique
+  refreshToken String   @unique
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+  ipAddress    String?
+  userAgent    String?
+  
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  @@map("user_sessions")
+}
+
+model Post {
+  id             String    @id @default(cuid())
+  title          String
+  content        String
+  excerpt        String?
+  slug           String    @unique
+  coverImage     String?
+  images         String[]  // Array of image URLs
+  published      Boolean   @default(false)
+  featured       Boolean   @default(false)
+  publishedAt    DateTime?
+  scheduledFor   DateTime?
+  views          Int       @default(0)
+  readingTime    Int?      // In minutes
+  seoTitle       String?
+  seoDescription String?
+  metaTags       Json?
+  status         PostStatus @default(DRAFT)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  
+  // Relations
+  author      User      @relation(fields: [authorId], references: [id])
+  authorId    String
+  comments    Comment[]
+  likes       Like[]
+  shares      Share[]
+  tags        PostTag[]
+  categories  PostCategory[]
+  analytics   PostAnalytics[]
+  
+  @@map("posts")
+}
+
+model Comment {
+  id        String   @id @default(cuid())
+  content   String
+  isApproved Boolean @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId String
+  post     Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId   String
+  
+  // Self-referencing for replies
+  parent   Comment? @relation("CommentReplies", fields: [parentId], references: [id])
+  parentId String?
+  replies  Comment[] @relation("CommentReplies")
+  
+  @@map("comments")
+}
+
+model Like {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
+  
+  @@unique([userId, postId])
+  @@map("likes")
+}
+
+model Share {
+  id        String    @id @default(cuid())
+  platform  String?   // facebook, twitter, whatsapp, etc.
+  createdAt DateTime  @default(now())
+  
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
+  
+  @@map("shares")
+}
+
+model Tag {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  description String?
+  color       String?   // Hex color for UI
+  createdAt   DateTime  @default(now())
+  
+  posts PostTag[]
+  
+  @@map("tags")
+}
+
+model PostTag {
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
+  tag    Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  tagId  String
+  
+  @@id([postId, tagId])
+  @@map("post_tags")
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  description String?
+  color       String?
+  icon        String?
+  createdAt   DateTime  @default(now())
+  
+  posts PostCategory[]
+  
+  @@map("categories")
+}
+
+model PostCategory {
+  post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId     String
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId String
+  
+  @@id([postId, categoryId])
+  @@map("post_categories")
+}
+
+model Follow {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  
+  follower    User @relation("UserFollowing", fields: [followerId], references: [id])
+  followerId  String
+  following   User @relation("UserFollowers", fields: [followingId], references: [id])
+  followingId String
+  
+  @@unique([followerId, followingId])
+  @@map("follows")
+}
+
+model Achievement {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String
+  icon        String
+  points      Int      @default(0)
+  category    String   // login, social, quiz, photo, etc.
+  condition   Json     // Conditions to unlock
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  
+  users UserAchievement[]
+  
+  @@map("achievements")
+}
+
+model UserAchievement {
+  id          String   @id @default(cuid())
+  unlockedAt  DateTime @default(now())
+  
+  user          User        @relation(fields: [userId], references: [id])
+  userId        String
+  achievement   Achievement @relation(fields: [achievementId], references: [id])
+  achievementId String
+  
+  @@unique([userId, achievementId])
+  @@map("user_achievements")
+}
+
+model Quiz {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  difficulty  QuizDifficulty @default(EASY)
+  timeLimit   Int?     // Seconds per question
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  questions QuizQuestion[]
+  attempts  QuizAttempt[]
+  
+  @@map("quizzes")
+}
+
+model QuizQuestion {
+  id            String   @id @default(cuid())
+  question      String
+  options       Json     // Array of options
+  correctAnswer Int      // Index of correct answer
+  explanation   String?
+  points        Int      @default(10)
+  order         Int
+  
+  quiz   Quiz   @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  quizId String
+  
+  answers QuizAnswer[]
+  
+  @@map("quiz_questions")
+}
+
+model QuizAttempt {
+  id          String   @id @default(cuid())
+  score       Int      @default(0)
+  totalPoints Int
+  timeSpent   Int?     // In seconds
+  completed   Boolean  @default(false)
+  startedAt   DateTime @default(now())
+  completedAt DateTime?
+  
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  quiz   Quiz   @relation(fields: [quizId], references: [id])
+  quizId String
+  
+  answers QuizAnswer[]
+  
+  @@map("quiz_attempts")
+}
+
+model QuizAnswer {
+  id           String   @id @default(cuid())
+  answer       Int      // Selected option index
+  isCorrect    Boolean
+  timeSpent    Int?     // Seconds for this question
+  hintsUsed    Int      @default(0)
+  
+  attempt    QuizAttempt   @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  attemptId  String
+  question   QuizQuestion  @relation(fields: [questionId], references: [id])
+  questionId String
+  
+  @@unique([attemptId, questionId])
+  @@map("quiz_answers")
+}
+
+model PhotoBoothItem {
+  id          String   @id @default(cuid())
+  originalUrl String
+  editedUrl   String
+  filters     Json     // Applied filters and settings
+  isPublic    Boolean  @default(false)
+  likes       Int      @default(0)
+  downloads   Int      @default(0)
+  createdAt   DateTime @default(now())
+  
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  
+  @@map("photo_booth_items")
+}
+
+model Notification {
+  id        String           @id @default(cuid())
+  title     String
+  message   String
+  type      NotificationType
+  data      Json?            // Additional data for the notification
+  read      Boolean          @default(false)
+  createdAt DateTime         @default(now())
+  
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  
+  @@map("notifications")
+}
+
+model UserAnalytics {
+  id            String   @id @default(cuid())
+  event         String   // page_view, login, quiz_complete, etc.
+  data          Json?    // Event-specific data
+  ipAddress     String?
+  userAgent     String?
+  referrer      String?
+  timestamp     DateTime @default(now())
+  
+  user   User?   @relation(fields: [userId], references: [id])
+  userId String?
+  
+  @@map("user_analytics")
+}
+
+model PostAnalytics {
+  id        String   @id @default(cuid())
+  views     Int      @default(1)
+  date      DateTime @default(now())
+  
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String
+  
+  @@unique([postId, date])
+  @@map("post_analytics")
+}
+
+model SystemSettings {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json
+  updatedAt DateTime @updatedAt
+  
+  @@map("system_settings")
+}
+
+// Enums
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+  SCHEDULED
+  ARCHIVED
+}
+
+enum QuizDifficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+enum NotificationType {
+  NEW_POST
+  NEW_COMMENT
+  NEW_FOLLOWER
+  ACHIEVEMENT_UNLOCKED
+  QUIZ_AVAILABLE
+  SYSTEM_NOTIFICATION
+  REMINDER
+}

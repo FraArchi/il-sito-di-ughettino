@@ -31,19 +31,35 @@
 
 
 <body>
-  <header class="ugo-header">
-    <h1> Il meraviglioso mondo di Ugo 🐾</h1>
-    <p>di Francesco Archidiacono - compagno di vita di Ugo</p>
+  <!-- Header fisso con navigazione -->
+  <header class="header-sticky">
+    <div class="header-content">
+      <a href="index.html" class="logo">🐾 Ugo</a>
+      
+      <!-- Menu hamburger per mobile -->
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      
+      <nav>
+        <ul id="nav-menu">
+          <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="giochi.html">Giochi</a></li>
+          <li><a href="foto.html">Galleria</a></li>
+          <li><a href="amici.html">Amici</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <nav>
-      <ul>
-        <li><a href="giochi.html">I giochi preferiti di Ugo</a></li>
-        <li><a href="foto.html">Galleria fotografica</a></li>
-        <li><a href="amici.html">Gli amici di Ugo</a></li>
-      </ul>
-    </nav>
+    <header class="ugo-header">
+      <h1>Il meraviglioso mondo di Ugo 🐾</h1>
+      <p>di Francesco Archidiacono - compagno di vita di Ugo</p>
+    </header>
 
     <div class="ugo-bg">
       <div class="ugo-overlay">
@@ -145,6 +161,25 @@
     };
   </script>
   <script src="cookie-demo.js"></script>
+  
+  <!-- Menu hamburger script -->
+  <script>
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const navMenu = document.getElementById('nav-menu');
+      const menuToggle = document.getElementById('menu-toggle');
+      
+      navMenu.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+    });
+    
+    // Chiudi menu quando si clicca su un link
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('nav-menu').classList.remove('active');
+        document.getElementById('menu-toggle').classList.remove('active');
+      });
+    });
+  </script>
 
 </body>
 </html>

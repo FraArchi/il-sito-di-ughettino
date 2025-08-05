@@ -392,20 +392,125 @@ section h1, section h2, section p {
   }
 }
 
-@media (max-width: 480px) {
-  main {
-    padding: 4rem 0.5rem 1rem;
-    gap: 1rem;
+/* CTA Sections */
+.cta-section {
+  background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+  color: white;
+  padding: 3rem 2rem;
+  border-radius: var(--border-radius);
+  margin: 2rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+  animation: float 20s infinite linear;
+}
+
+@keyframes float {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.cta-section h2 {
+  color: white;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.cta-section p {
+  color: rgba(255,255,255,0.9);
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+.button-cta {
+  background: white;
+  color: var(--primary-color);
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  transition: var(--transition);
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.button-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+/* Newsletter Form */
+#newsletter-form {
+  display: flex;
+  gap: 1rem;
+  max-width: 400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+#newsletter-form input {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  border-radius: 25px;
+  font-size: 1rem;
+}
+
+#newsletter-form button {
+  background: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+#newsletter-form button:hover {
+  background: #af4a00;
+  transform: scale(1.05);
+}
+
+/* Chi Sono Section */
+.chi-sono-content {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.chi-sono-img {
+  width: 100%;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-light);
+}
+
+@media (max-width: 768px) {
+  .chi-sono-content {
+    grid-template-columns: 1fr;
+    text-align: center;
   }
   
-  article, section {
-    padding: 1rem;
-    margin: 0 1rem;
-  }
-  
-  .ugo-header {
-    padding: 4rem 1rem 1rem;
-    margin: 0 1rem 1rem;
+  #newsletter-form {
+    flex-direction: column;
   }
 }
 

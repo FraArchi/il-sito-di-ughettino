@@ -1,0 +1,143 @@
+.story-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+}
+
+.story-scene {
+    display: none;
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    box-shadow: var(--shadow-light);
+    animation: fadeIn 0.5s ease-in;
+}
+
+.story-scene.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.story-image {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.story-image img {
+    max-width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-light);
+}
+
+.story-text {
+    margin-bottom: 2rem;
+}
+
+.story-text h2 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.story-text p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.story-choices {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.choice-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: var(--transition);
+    min-width: 200px;
+}
+
+.choice-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.story-ending {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.ending-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.story-stats {
+    background: var(--bg-secondary);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    margin-top: 2rem;
+    box-shadow: var(--shadow-light);
+}
+
+.achievement {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(185,122,86,0.1);
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.achievement.unlocked {
+    background: rgba(76,175,80,0.1);
+}
+
+.achievement-icon {
+    font-size: 1.5rem;
+}
+
+.achievement-name {
+    flex: 1;
+    font-weight: 600;
+}
+
+.achievement-status {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .story-choices {
+        flex-direction: column;
+    }
+    
+    .choice-btn {
+        min-width: auto;
+    }
+    
+    .story-image img {
+        height: 200px;
+    }
+}

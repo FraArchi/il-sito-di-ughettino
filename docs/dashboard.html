@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard di Ugo - I tuoi Progressi</title>
+    <meta name="description" content="Traccia i tuoi progressi, achievement e interazioni nel mondo di Ugo.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard-style.css">
+</head>
+<body>
+    <header class="header-sticky">
+        <div class="header-content">
+            <a href="index.html" class="logo">🐾 Ugo</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                    <li><a href="ugo-stories.html">Storie</a></li>
+                    <li><a href="quiz.html">Quiz</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="dashboard-container">
+            <div class="welcome-section">
+                <h1>Benvenuto nella tua Dashboard! 🐕</h1>
+                <div class="user-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="days-since-first-visit">0</div>
+                            <div class="stat-label">Giorni con Ugo</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🏆</div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="total-achievements">0</div>
+                            <div class="stat-label">Achievement</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="ugo-points">0</div>
+                            <div class="stat-label">Ugo Points</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📖</div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="stories-completed">0</div>
+                            <div class="stat-label">Storie Completate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="achievements-section">
+                <h2>I Tuoi Achievement 🏅</h2>
+                <div class="achievements-grid" id="achievements-grid">
+                    <!-- Achievement verranno inseriti qui da JS -->
+                </div>
+            </div>
+
+            <div class="activity-section">
+                <h2>Attività Recente 📊</h2>
+                <div class="activity-chart">
+                    <canvas id="activity-chart" width="400" height="200"></canvas>
+                </div>
+            </div>
+
+            <div class="daily-challenge">
+                <h2>Sfida Quotidiana 🎯</h2>
+                <div class="challenge-card" id="daily-challenge">
+                    <!-- Sfida quotidiana verrà inserita qui -->
+                </div>
+            </div>
+
+            <div class="ugo-mood">
+                <h2>L'Umore di Ugo Oggi 😊</h2>
+                <div class="mood-display">
+                    <div class="ugo-avatar" id="ugo-avatar">
+                        <img src="Ugo.jpeg" alt="Ugo" class="avatar-img">
+                        <div class="mood-indicator" id="mood-indicator">😊</div>
+                    </div>
+                    <div class="mood-message" id="mood-message">
+                        Ugo è felice di vederti oggi!
+                    </div>
+                </div>
+                <div class="mood-actions">
+                    <button class="mood-btn" onclick="interactWithUgo('pet')">🤚 Accarezza</button>
+                    <button class="mood-btn" onclick="interactWithUgo('treat')">🦴 Premietto</button>
+                    <button class="mood-btn" onclick="interactWithUgo('play')">🎾 Gioca</button>
+                </div>
+            </div>
+
+            <div class="personalization-section">
+                <h2>Personalizza la tua Esperienza 🎨</h2>
+                <div class="theme-selector">
+                    <h3>Tema del Sito</h3>
+                    <div class="theme-options">
+                        <button class="theme-btn active" data-theme="default">🌅 Classico</button>
+                        <button class="theme-btn" data-theme="dark">🌙 Scuro</button>
+                        <button class="theme-btn" data-theme="playful">🎈 Giocoso</button>
+                        <button class="theme-btn" data-theme="autumn">🍂 Autunnale</button>
+                    </div>
+                </div>
+                
+                <div class="notification-settings">
+                    <h3>Notifiche</h3>
+                    <label class="switch">
+                        <input type="checkbox" id="daily-story-notification">
+                        <span class="slider"></span>
+                        Nuove storie quotidiane
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" id="achievement-notification">
+                        <span class="slider"></span>
+                        Nuovi achievement
+                    </label>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Storie di Ugo - Racconti Interattivi</title>
+    <meta name="description" content="Scopri le avventure di Ugo attraverso storie interattive, con scelte che influenzano il racconto.">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stories-style.css">
+</head>
+<body>
+    <header class="header-sticky">
+        <div class="header-content">
+            <a href="index.html" class="logo">🐾 Ugo</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="ugo-stories.html" class="active">Storie</a></li>
+                    <li><a href="quiz.html">Quiz</a></li>
+                    <li><a href="photobooth.html">Photo Booth</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="story-container">
+            <h1>Le Avventure Interattive di Ugo</h1>
+            <div id="story-content">
+                <div class="story-scene active" id="scene-1">
+                    <div class="story-image">
+                        <img src="Ugo.jpeg" alt="Ugo nel parco" loading="lazy">
+                    </div>
+                    <div class="story-text">
+                        <h2>Il Parco delle Decisioni</h2>
+                        <p>Ugo si trova davanti a un bivio nel parco. A sinistra vede altri cani che giocano, a destra sente l'odore di qualcosa di interessante...</p>
+                    </div>
+                    <div class="story-choices">
+                        <button class="choice-btn" onclick="goToScene(2)">🐕 Vai verso gli altri cani</button>
+                        <button class="choice-btn" onclick="goToScene(3)">👃 Segui l'odore misterioso</button>
+                    </div>
+                </div>
+
+                <div class="story-scene" id="scene-2">
+                    <div class="story-image">
+                        <img src="golden con sfondo nero.jpg" alt="Ugo gioca con altri cani" loading="lazy">
+                    </div>
+                    <div class="story-text">
+                        <h2>Nuove Amicizie</h2>
+                        <p>Ugo incontra un gruppo di cani molto amichevoli. Tra loro c'è un Golden Retriever come lui che lo invita a giocare!</p>
+                    </div>
+                    <div class="story-choices">
+                        <button class="choice-btn" onclick="goToScene(4)">🎾 Inizia a giocare</button>
+                        <button class="choice-btn" onclick="goToScene(1)">🚶 Torna indietro</button>
+                    </div>
+                </div>
+
+                <div class="story-scene" id="scene-3">
+                    <div class="story-image">
+                        <img src="impronta stupenda.jpg" alt="Ugo segue una traccia" loading="lazy">
+                    </div>
+                    <div class="story-text">
+                        <h2>Il Mistero si Infittisce</h2>
+                        <p>L'odore porta Ugo verso un cespuglio. Sente dei rumori strani... potrebbe essere un gatto o forse qualcosa di più interessante!</p>
+                    </div>
+                    <div class="story-choices">
+                        <button class="choice-btn" onclick="goToScene(5)">🔍 Investiga il cespuglio</button>
+                        <button class="choice-btn" onclick="goToScene(1)">🚶 Torna indietro</button>
+                    </div>
+                </div>
+
+                <div class="story-scene" id="scene-4">
+                    <div class="story-text">
+                        <h2>La Giornata Perfetta</h2>
+                        <p>Ugo trascorre un pomeriggio fantastico giocando con i suoi nuovi amici. Ha imparato che a volte le migliori avventure nascono dall'apertura verso gli altri!</p>
+                        <div class="story-ending">
+                            <span class="ending-badge">🏆 Finale: Amicizia</span>
+                            <p><strong>Morale:</strong> L'amicizia è il tesoro più prezioso</p>
+                        </div>
+                    </div>
+                    <div class="story-choices">
+                        <button class="choice-btn" onclick="goToScene(1)">🔄 Ricomincia l'avventura</button>
+                    </div>
+                </div>
+
+                <div class="story-scene" id="scene-5">
+                    <div class="story-text">
+                        <h2>La Sorpresa</h2>
+                        <p>Nel cespuglio Ugo trova un piccolo cucciolo spaventato! Con la sua gentilezza riesce a calmarlo e lo aiuta a ritrovare la sua famiglia.</p>
+                        <div class="story-ending">
+                            <span class="ending-badge">🌟 Finale: Eroismo</span>
+                            <p><strong>Morale:</strong> La curiosità e la gentilezza possono salvare una giornata</p>
+                        </div>
+                    </div>
+                    <div class="story-choices">
+                        <button class="choice-btn" onclick="goToScene(1)">🔄 Ricomincia l'avventura</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-stats">
+                <h3>Le tue Avventure</h3>
+                <div id="endings-unlocked">
+                    <div class="achievement" id="achievement-friendship">
+                        <span class="achievement-icon">🏆</span>
+                        <span class="achievement-name">Finale Amicizia</span>
+                        <span class="achievement-status">🔒</span>
+                    </div>
+                    <div class="achievement" id="achievement-hero">
+                        <span class="achievement-icon">🌟</span>
+                        <span class="achievement-name">Finale Eroismo</span>
+                        <span class="achievement-status">🔒</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="stories.js"></script>
+</body>
+</html>

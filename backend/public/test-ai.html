@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UGO AI - Test Live</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .test-section { border: 1px solid #ddd; margin: 10px 0; padding: 15px; border-radius: 5px; }
+        button { background: #007bff; color: white; border: none; padding: 10px 15px; cursor: pointer; margin: 5px; }
+        button:hover { background: #0056b3; }
+        .result { background: #f8f9fa; border: 1px solid #e9ecef; padding: 10px; margin: 10px 0; border-radius: 3px; }
+        .loading { color: #666; font-style: italic; }
+        .error { color: #dc3545; }
+        .success { color: #28a745; }
+        input, textarea { width: 100%; padding: 8px; margin: 5px 0; }
+    </style>
+</head>
+<body>
+    <h1>🚀 UGO AI - Test Live</h1>
+    
+    <div class="test-section">
+        <h2>⚡ Quick Test</h2>
+        <button onclick="quickTest()">Test Veloce</button>
+        <div id="quick-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🎨 Generazione Immagine Veloce</h2>
+        <input type="text" id="prompt-input" placeholder="Descrivi l'immagine (es: a cute dog)" value="a cute golden retriever puppy">
+        <button onclick="fastGenerate()">Genera Veloce (128x128)</button>
+        <div id="image-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>🎤 Sintesi Vocale</h2>
+        <textarea id="tts-input" rows="3" placeholder="Inserisci il testo">Ciao! Sono UGO, il tuo assistente AI.</textarea>
+        <button onclick="synthesizeSpeech()">Genera Audio</button>
+        <div id="tts-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>📊 Status Servizi</h2>
+        <button onclick="checkHealth()">Verifica Status</button>
+        <div id="health-result" class="result"></div>
+    </div>
+
+    <script>
+        const API_BASE = '/api/ai';
+        
+        async function quickTest() {
+            const result = document.getElementById('quick-result');
+            result.innerHTML = '<span class="loading">Test in corso...</span>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/quick-test`);
+                const data = await response.json();
+                
+                if (data.success) {
+                    result.innerHTML = `
+                        <div class="success">✅ Test completato in ${data.response_time}</div>
+                        <p>MediaPipe: ${data.mediapipe}</p>
+                        <p>TTS: ${data.tts}</p>
+                    `;
+                } else {
+                    result.innerHTML = `<div class="error">❌ ${data.error}</div>`;
+                }
+            } catch (error) {
+                result.innerHTML = `<div class="error">❌ Errore: ${error.message}</div>`;
+            }
+        }
+
+        async function fastGenerate() {
+            const prompt = document.getElementById('prompt-input').value;
+            const result = document.getElementById('image-result');
+            
+            if (!prompt) {
+                result.innerHTML = '<div class="error">❌ Inserisci un prompt</div>';
+                return;
+            }
+            
+            result.innerHTML = '<span class="loading">🎨 Generando immagine veloce...</span>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/fast-generate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success && data.image) {
+                    result.innerHTML = `
+                        <div class="success">✅ Immagine generata!</div>
+                        <p><strong>Prompt:</strong> ${prompt}</p>
+                        <img src="${data.image}" style="max-width: 100%; border: 1px solid #ddd;" alt="Generated image">
+                        <p><small>Modalità: ${data.mode}</small></p>
+                    `;
+                } else {
+                    result.innerHTML = `<div class="error">❌ ${data.error}</div>`;
+                }
+            } catch (error) {
+                result.innerHTML = `<div class="error">❌ Errore: ${error.message}</div>`;
+            }
+        }
+
+        async function synthesizeSpeech() {
+            const text = document.getElementById('tts-input').value;
+            const result = document.getElementById('tts-result');
+            
+            if (!text) {
+                result.innerHTML = '<div class="error">❌ Inserisci del testo</div>';
+                return;
+            }
+            
+            result.innerHTML = '<span class="loading">🎤 Sintetizzando audio...</span>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/synthesize-speech`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success && data.audio) {
+                    result.innerHTML = `
+                        <div class="success">✅ Audio generato!</div>
+                        <p><strong>Testo:</strong> ${text}</p>
+                        <audio controls style="width: 100%;">
+                            <source src="${data.audio}" type="audio/wav">
+                            Browser non supporta audio.
+                        </audio>
+                        <p><small>Durata: ${data.duration?.toFixed(2)}s</small></p>
+                    `;
+                } else {
+                    result.innerHTML = `<div class="error">❌ ${data.error}</div>`;
+                }
+            } catch (error) {
+                result.innerHTML = `<div class="error">❌ Errore: ${error.message}</div>`;
+            }
+        }
+
+        async function checkHealth() {
+            const result = document.getElementById('health-result');
+            result.innerHTML = '<span class="loading">🔍 Verificando servizi...</span>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                
+                let html = `<div class="success">✅ Backend AI: ${data.ai_backend}</div>`;
+                html += `<p><strong>Servizi:</strong></p>`;
+                
+                for (const [name, status] of Object.entries(data.services)) {
+                    const icon = status.status === 'healthy' ? '✅' : '❌';
+                    html += `<p>${icon} ${name}: ${status.status}</p>`;
+                }
+                
+                result.innerHTML = html;
+            } catch (error) {
+                result.innerHTML = `<div class="error">❌ Errore: ${error.message}</div>`;
+            }
+        }
+
+        // Auto-test iniziale
+        window.onload = () => {
+            setTimeout(quickTest, 1000);
+        };
+    </script>
+</body>
+</html>

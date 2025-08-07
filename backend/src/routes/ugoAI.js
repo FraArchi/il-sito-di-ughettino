@@ -4,7 +4,7 @@ const UgoAICompanion = require('../services/ugoAICompanion');
 const ConversationMemory = require('../services/conversationMemory');
 const UgoPersonality = require('../services/ugoPersonality');
 const EmotionEngine = require('../services/emotionEngine');
-const auth = require('../middleware/auth');
+const { authMiddleware } = require('../middleware/authMiddleware');
 const logger = require('../utils/logger');
 
 const router = express.Router();
@@ -20,7 +20,7 @@ const emotionEngine = new EmotionEngine();
  * Chat principale con Ugo AI Companion
  */
 router.post('/chat', 
-  auth,
+  authMiddleware,
   [
     body('message')
       .notEmpty()
@@ -86,7 +86,7 @@ router.post('/chat',
  * GET /api/ugo-ai/personality
  * Ottieni stato personalità di Ugo
  */
-router.get('/personality', auth, async (req, res) => {
+router.get('/personality', authMiddleware, async (req, res) => {
   try {
     const personality = ugoPersonality.getCurrentState();
     const emotionalSummary = emotionEngine.getEmotionalSummary();
@@ -114,7 +114,7 @@ router.get('/personality', auth, async (req, res) => {
  * Fornisci feedback per evoluzione personalità
  */
 router.post('/personality/feedback',
-  auth,
+  authMiddleware,
   [
     body('feedback')
       .isIn(['positive', 'negative', 'neutral'])
@@ -175,7 +175,7 @@ router.post('/personality/feedback',
  * GET /api/ugo-ai/memory/stats
  * Statistiche memoria conversazionale
  */
-router.get('/memory/stats', auth, async (req, res) => {
+router.get('/memory/stats', authMiddleware, async (req, res) => {
   try {
     const userId = req.user.id;
     const memoryStats = await conversationMemory.getMemoryStats(userId);
@@ -203,7 +203,7 @@ router.get('/memory/stats', auth, async (req, res) => {
  * Storia conversazioni
  */
 router.get('/conversation/history',
-  auth,
+  authMiddleware,
   [
     query('limit')
       .optional()
@@ -254,7 +254,7 @@ router.get('/conversation/history',
  * Forza un mood specifico (per testing)
  */
 router.post('/emotion/force',
-  auth,
+  authMiddleware,
   [
     body('mood')
       .isIn(['excited', 'happy', 'curious', 'playful', 'calm', 'affectionate', 'alert', 'confused'])
@@ -312,7 +312,7 @@ router.post('/emotion/force',
  * Avvia training personalizzato di Ugo
  */
 router.post('/train',
-  auth,
+  authMiddleware,
   [
     body('includeStories')
       .optional()
@@ -412,7 +412,7 @@ router.get('/health', async (req, res) => {
  * GET /api/ugo-ai/stats
  * Statistiche generali AI
  */
-router.get('/stats', auth, async (req, res) => {
+router.get('/stats', authMiddleware, async (req, res) => {
   try {
     const userId = req.user.id;
     

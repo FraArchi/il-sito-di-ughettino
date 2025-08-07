@@ -1,6 +1,10 @@
 const axios = require('axios');
 const logger = require('../utils/logger');
 const { cache } = require('../config/redis');
+const UgoPersonality = require('./ugoPersonality');
+const ConversationMemory = require('./conversationMemory');
+const EmotionEngine = require('./emotionEngine');
+const UgoContextBuilder = require('./ugoContextBuilder');
 
 /**
  * UGO AI COMPANION - 100% Open Source AI Assistant

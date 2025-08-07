@@ -20,6 +20,7 @@ const notificationRoutes = require('./routes/notificationRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const ugoAIRoutes = require('./routes/ugoAI');
+const aiRoutes = require('./routes/aiRoutes');
 
 // Import middleware
 const errorHandler = require('./middleware/errorHandler');
@@ -97,8 +98,9 @@ app.use('/api/', limiter);
 const speedLimiter = slowDown({
   windowMs: 15 * 60 * 1000, // 15 minutes
   delayAfter: 50, // Allow 50 requests per windowMs without delay
-  delayMs: 500, // Add 500ms delay per request after delayAfter
+  delayMs: () => 500, // Add 500ms delay per request after delayAfter
   maxDelayMs: 20000, // Maximum delay of 20 seconds
+  validate: { delayMs: false }, // Disable deprecation warning
 });
 
 app.use('/api/', speedLimiter);
@@ -134,6 +136,7 @@ app.use('/api/notifications', notificationRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/ugo-ai', ugoAIRoutes);
+app.use('/api/ai', aiRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {

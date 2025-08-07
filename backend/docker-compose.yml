@@ -56,13 +56,6 @@ services:
       - OLLAMA_MODELS=llama3.1:8b
       - OLLAMA_HOST=0.0.0.0
       - OLLAMA_ORIGINS=*
-    command: |
-      sh -c "
-        ollama serve &
-        sleep 10 &&
-        ollama pull llama3.1:8b &&
-        wait
-      "
     deploy:
       resources:
         limits:

@@ -1,0 +1,71 @@
+# Root .gitignore (frontend + backend)
+
+# Environment / secrets
+.env
+*.env
+.env.*
+backend/.env
+backend/**/*.env
+supabase/.env
+
+# Node dependencies
+node_modules/
+**/node_modules/
+
+# Logs & runtime
+logs/
+**/logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+/tmp/
+.pids
+*.pid
+*.seed
+
+# Coverage / build artifacts
+coverage/
+coverage-*
+build/
+dist/
+.tmp/
+.next/
+.vercel/
+serverless/
+out/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+*.orig
+
+# Caches
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+
+# Uploads (ignore raw uploads if not versioned)
+backend/uploads/
+
+# Prisma local databases
+backend/prisma/*.db
+
+# Docker overrides
+**/docker-compose.override.yml
+
+# Misc archives
+*.tgz
+*.tar
+*.zip
+
+# Lockfiles (optional keep) - comment out if you want them tracked
+# pnpm-lock.yaml
+# yarn.lock
+# package-lock.json

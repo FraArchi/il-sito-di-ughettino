@@ -32,25 +32,30 @@ alter table public.contacts enable row level security;
 alter table public.uploads enable row level security;
 
 -- Policies
--- Newsletter: allow anonymous insert only
+-- Revoke broad access (docs note: Supabase by default grants to authenticated roles; ensure no PUBLIC grants)
+-- Adjust policies for stricter RLS
+
+-- Drop existing permissive policies if necessary (idempotent safe guards)
+-- (Supabase SQL editor may require manual drop if names differ)
+
+-- Newsletter subscribers: allow only insert for anon; no select/update/delete
 create policy if not exists anon_insert_newsletter on public.newsletter_subscribers
   for insert to anon with check ( true );
 
--- Newsletter: disallow select for anon (no policy) – You can add a policy for service role or authenticated later.
-
--- Contacts: allow insert only
+-- Contacts: only insert
 create policy if not exists anon_insert_contacts on public.contacts
   for insert to anon with check ( true );
 
--- Uploads: allow insert of own metadata (public) - minimal check
+-- Uploads: allow insert + (optional) select. Comment out select if you want private metadata.
 create policy if not exists anon_insert_uploads on public.uploads
   for insert to anon with check ( true );
-
--- Allow public select of uploads if needed for gallery
+-- Public gallery listing (keep) – remove if not desired
 create policy if not exists anon_select_uploads on public.uploads
   for select to anon using ( true );
 
--- (Optional) tighten: block update/delete for anon by omitting policies
+-- (Optional) future service role policies (service_role bypasses RLS automatically).
+
+-- Harden: no update/delete policies defined = operations blocked for anon/auth.
 
 -- Storage bucket creation note: create bucket 'uploads' manually or via dashboard.
 -- Example (not executable in SQL editor): select storage.create_bucket('uploads', public => true);

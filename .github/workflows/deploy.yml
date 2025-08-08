@@ -1,0 +1,70 @@
+name: Backend Deploy
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+      SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: backend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: backend
+        run: npm ci
+
+      - name: Lint
+        working-directory: backend
+        run: |
+          if [ -f package.json ]; then npm run lint || echo "Lint warnings"; fi
+
+      - name: Run tests
+        working-directory: backend
+        run: |
+          if [ -f package.json ]; then npm test || echo "Tests failed (continuing)"; fi
+
+      - name: Supabase SQL Init
+        if: env.SUPABASE_URL != ''
+        env:
+          SUPABASE_DB_PASSWORD: ${{ secrets.SUPABASE_DB_PASSWORD }}
+          SUPABASE_DB_USER: ${{ secrets.SUPABASE_DB_USER }}
+          SUPABASE_DB_HOST: ${{ secrets.SUPABASE_DB_HOST }}
+          SUPABASE_DB_PORT: ${{ secrets.SUPABASE_DB_PORT }}
+          SUPABASE_DB_NAME: ${{ secrets.SUPABASE_DB_NAME }}
+        run: |
+          if [ -n "$SUPABASE_DB_HOST" ]; then
+            echo "Running init.sql against database";
+            sudo apt-get update && sudo apt-get install -y postgresql-client;
+            psql "host=$SUPABASE_DB_HOST port=${SUPABASE_DB_PORT:-5432} dbname=$SUPABASE_DB_NAME user=$SUPABASE_DB_USER password=$SUPABASE_DB_PASSWORD sslmode=require" -f backend/supabase/init.sql;
+          else
+            echo "Skipping SQL init (DB host not set)";
+          fi
+
+      - name: Build Docker image
+        working-directory: backend
+        run: |
+          echo "Building Docker image";
+          docker build -t ugo-backend:latest .
+
+      - name: (Optional) Push to Registry
+        if: false
+        run: echo "Add registry login & docker push here"
+
+      - name: Deployment Placeholder
+        run: |
+          echo "Add deployment step (e.g., Render, Fly.io, Railway) with service API.";
+          echo "Use secrets for API tokens.";

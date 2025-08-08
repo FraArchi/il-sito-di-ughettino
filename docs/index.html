@@ -148,14 +148,15 @@
     </section>
 
     <!-- Newsletter CTA -->
-    <section id="newsletter" class="cta-section">
+    <section class="cta-section">
       <h2>Le Avventure di Ugo, ogni settimana!</h2>
       <p>Iscriviti alla nostra newsletter per non perdere gli ultimi post, foto esclusive e consigli per il tuo cane.</p>
-      <form id="newsletter-form">
-        <input type="email" name="email" placeholder="La tua email migliore" required aria-label="Indirizzo email per la newsletter">
-        <button type="submit">Iscrivimi!</button>
+      <form id="newsletter-form" aria-label="Modulo iscrizione newsletter">
+        <label for="newsletter-email" class="sr-only">Indirizzo email</label>
+        <input id="newsletter-email" type="email" name="email" placeholder="La tua email" required aria-required="true" aria-describedby="newsletter-feedback" />
+        <button id="newsletter-submit" type="submit">Iscrivimi!</button>
       </form>
-      <p id="newsletter-feedback" class="feedback-message"></p>
+      <p id="newsletter-feedback" class="feedback-message" role="status" aria-live="polite"></p>
     </section>
 
     <!-- Ugo Quiz CTA -->
@@ -165,11 +166,29 @@
       <a href="quiz.html" class="button-cta">Inizia il Quiz!</a>
     </section>
 
-    <!-- Photo Booth CTA -->
-    <section id="photobooth-cta" class="cta-section">
-      <h2>Crea un capolavoro con il tuo cane!</h2>
-      <p>Usa il nostro Photo Booth per aggiungere cornici e adesivi a tema Ugo alle foto del tuo amico a quattro zampe.</p>
-      <a href="photobooth.html" class="button-cta">Prova il Photo Booth!</a>
+    <!-- Contact & Upload section -->
+    <section id="contact-upload" class="cta-section">
+      <h2>Contattaci</h2>
+      <p>Hai una domanda o vuoi inviarci una foto di Ugo? Usa il modulo qui sotto.</p>
+
+      <form id="contact-form" aria-label="Modulo contatto">
+        <label for="contact-name" class="sr-only">Nome</label>
+        <input id="contact-name" name="name" type="text" placeholder="Il tuo nome" required aria-required="true">
+        <label for="contact-email" class="sr-only">Email</label>
+        <input id="contact-email" name="email" type="email" placeholder="La tua email" required aria-required="true">
+        <label for="contact-message" class="sr-only">Messaggio</label>
+        <textarea id="contact-message" name="message" rows="4" placeholder="Scrivi il tuo messaggio..." required aria-required="true"></textarea>
+        <button id="contact-submit" type="submit">Invia messaggio</button>
+      </form>
+      <p id="contact-feedback" class="feedback-message" role="status" aria-live="polite"></p>
+
+      <h3>Carica una foto</h3>
+      <p>Carica una foto: verrà salvata nel bucket "uploads".</p>
+      <form id="upload-form" aria-label="Caricamento file">
+        <input id="upload-file" type="file" name="file" accept="image/*" required aria-required="true">
+        <button id="upload-submit" type="submit">Carica</button>
+      </form>
+      <p id="upload-feedback" class="feedback-message" role="status" aria-live="polite"></p>
     </section>
 
     <!-- Sezione Commenti Disqus -->
@@ -283,5 +302,78 @@
   
   <!-- Ugo AI Companion -->
   <script src="ugoAICompanion.js"></script>
+
+  <!-- Rimosso blocco inline Supabase duplicato; usare modulo js/supabase-client.js -->
+  <script type="module" src="js/supabase-client.js"></script>
+  <script type="module">
+    import { subscribeNewsletter, submitContact, uploadFile } from './js/supabase-client.js';
+
+    function disable(el, state) { if (el) el.disabled = state; }
+
+    // Newsletter
+    const newsletterForm = document.getElementById('newsletter-form');
+    const newsletterFeedback = document.getElementById('newsletter-feedback');
+    newsletterForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const emailInput = document.getElementById('newsletter-email');
+      const btn = document.getElementById('newsletter-submit');
+      const email = emailInput.value.trim();
+      newsletterFeedback.textContent = 'Invio...';
+      disable(btn, true);
+      try {
+        await subscribeNewsletter(email);
+        newsletterFeedback.textContent = 'Iscrizione completata!';
+        newsletterForm.reset();
+      } catch (err) {
+        newsletterFeedback.textContent = 'Errore: ' + (err.message || 'Operazione fallita');
+      } finally {
+        disable(btn, false);
+      }
+    });
+
+    // Contact
+    const contactForm = document.getElementById('contact-form');
+    const contactFeedback = document.getElementById('contact-feedback');
+    contactForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('contact-name').value.trim();
+      const email = document.getElementById('contact-email').value.trim();
+      const message = document.getElementById('contact-message').value.trim();
+      const btn = document.getElementById('contact-submit');
+      contactFeedback.textContent = 'Invio...';
+      disable(btn, true);
+      try {
+        await submitContact({ name, email, message });
+        contactFeedback.textContent = 'Messaggio inviato!';
+        contactForm.reset();
+      } catch (err) {
+        contactFeedback.textContent = 'Errore: ' + (err.message || 'Operazione fallita');
+      } finally {
+        disable(btn, false);
+      }
+    });
+
+    // Upload
+    const uploadForm = document.getElementById('upload-form');
+    const uploadFeedback = document.getElementById('upload-feedback');
+    uploadForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fileInput = document.getElementById('upload-file');
+      const btn = document.getElementById('upload-submit');
+      const file = fileInput.files[0];
+      if (!file) { uploadFeedback.textContent = 'Seleziona un file.'; return; }
+      uploadFeedback.textContent = 'Caricamento...';
+      disable(btn, true);
+      try {
+        const { publicUrl } = await uploadFile(file);
+        uploadFeedback.innerHTML = 'File caricato: <a href="' + publicUrl + '" target="_blank" rel="noopener">Apri</a>';
+        uploadForm.reset();
+      } catch (err) {
+        uploadFeedback.textContent = 'Errore: ' + (err.message || 'Operazione fallita');
+      } finally {
+        disable(btn, false);
+      }
+    });
+  </script>
 </body>
 </html>

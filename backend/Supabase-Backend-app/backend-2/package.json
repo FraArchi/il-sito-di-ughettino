@@ -1,0 +1,27 @@
+{
+  "name": "ugo-backend",
+  "version": "1.0.0",
+  "description": "Backend for Il Mondo di Ugo",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "pg": "^8.7.1",
+    "redis": "^3.1.2",
+    "jsonwebtoken": "^8.5.1",
+    "sendgrid/mail": "^7.4.0",
+    "sentry-node": "^6.0.0",
+    "supabase-js": "^1.28.0"
+  },
+  "devDependencies": {
+    "jest": "^27.0.0",
+    "nodemon": "^2.0.12"
+  },
+  "author": "Francesco Archi",
+  "license": "MIT"
+}

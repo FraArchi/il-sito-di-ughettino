@@ -1,0 +1,38 @@
+name: Deploy Backend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: |
+          cd backend
+          npm install
+
+      - name: Run migrations and seed database
+        run: |
+          cd backend
+          npx supabase db push --file ../supabase/init.sql
+
+      - name: Deploy application
+        run: |
+          cd backend
+          npm run build
+          npm start
+
+      - name: Notify deployment success
+        run: echo "Deployment successful!"

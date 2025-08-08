@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Build output
+build/
+dist/
+.tmp/
+coverage/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Misc
+*.tgz
+.cache/
+.vercel/
+.next/
+serverless/
+
+# Docker artifacts
+**/docker-compose.override.yml
+
+# Prisma
+prisma/*.db
+
+# Uploads (if ephemeral / generated)
+uploads/

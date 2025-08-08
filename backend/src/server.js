@@ -7,16 +7,33 @@ const redisClient = require('./config/redis');
 const prisma = new PrismaClient();
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || 'localhost';
+const ALLOW_START_WITHOUT_DB = process.env.ALLOW_START_WITHOUT_DB === 'true';
 
 async function startServer() {
   try {
     // Test database connection
-    await prisma.$connect();
-    logger.info('✅ Database connected successfully');
+    try {
+      await prisma.$connect();
+      logger.info('✅ Database connected successfully');
+    } catch (dbErr) {
+      if (ALLOW_START_WITHOUT_DB) {
+        logger.warn('⚠️ Database connection failed but continuing due to ALLOW_START_WITHOUT_DB=true:', dbErr.message);
+      } else {
+        throw dbErr;
+      }
+    }
 
     // Test Redis connection
-    await redisClient.ping();
-    logger.info('✅ Redis connected successfully');
+    try {
+      await redisClient.ping();
+      logger.info('✅ Redis connected successfully');
+    } catch (redisErr) {
+      if (ALLOW_START_WITHOUT_DB) {
+        logger.warn('⚠️ Redis connection failed but continuing due to ALLOW_START_WITHOUT_DB=true:', redisErr.message);
+      } else {
+        throw redisErr;
+      }
+    }
 
     // Start HTTP server
     const server = app.listen(PORT, HOST, () => {
@@ -24,6 +41,9 @@ async function startServer() {
       logger.info(`📚 API Documentation: http://${HOST}:${PORT}/api-docs`);
       logger.info(`🏥 Health Check: http://${HOST}:${PORT}/health`);
       logger.info(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
+      if (ALLOW_START_WITHOUT_DB) {
+        logger.warn('⚠️ Running without confirmed DB/Redis connections. Do not use in production.');
+      }
     });
 
     // Initialize Socket.io

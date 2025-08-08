@@ -21,6 +21,7 @@ const analyticsRoutes = require('./routes/analyticsRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const ugoAIRoutes = require('./routes/ugoAI');
 const aiRoutes = require('./routes/aiRoutes');
+const publicIntegrationRoutes = require('./routes/publicIntegrationRoutes');
 
 // Import middleware
 const errorHandler = require('./middleware/errorHandler');
@@ -137,6 +138,7 @@ app.use('/api/analytics', analyticsRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/ugo-ai', ugoAIRoutes);
 app.use('/api/ai', aiRoutes);
+app.use('/api/public', publicIntegrationRoutes);
 
 // 404 handler
 app.use('*', (req, res) => {

@@ -14,17 +14,20 @@ class EmailService {
       sgMail.setApiKey(process.env.SENDGRID_API_KEY);
       logger.info('Email service initialized with SendGrid');
     } else {
-      // Use SMTP (for development)
-      this.transporter = nodemailer.createTransporter({
-        host: process.env.SMTP_HOST || 'localhost',
-        port: process.env.SMTP_PORT || 1025,
-        secure: false,
-        auth: process.env.SMTP_USER ? {
-          user: process.env.SMTP_USER,
-          pass: process.env.SMTP_PASS
-        } : false
-      });
-      logger.info('Email service initialized with SMTP');
+      try {
+        this.transporter = nodemailer.createTransport({
+          host: process.env.SMTP_HOST || 'localhost',
+          port: process.env.SMTP_PORT || 1025,
+          secure: false,
+          auth: process.env.SMTP_USER ? {
+            user: process.env.SMTP_USER,
+            pass: process.env.SMTP_PASS
+          } : undefined
+        });
+        logger.info('Email service initialized with SMTP');
+      } catch (e) {
+        logger.error('Failed to init SMTP transporter', e);
+      }
     }
   }
 

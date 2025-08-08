@@ -1,28 +1,29 @@
+version: 3.x
+
 services:
-  # Main Backend Application
   ugo-backend:
-    build: .
+    build:
+      context: .         # se il Dockerfile è in ./backend -> usa "./backend"
+      dockerfile: Dockerfile
+    restart: unless-stopped
     ports:
       - "3000:3000"
     environment:
-      - NODE_ENV=production
-      - DATABASE_URL=postgresql://postgres:password@postgres:5432/ugo_db
-      - REDIS_URL=redis://redis:6379
-      - OLLAMA_URL=http://ollama:11434
-      - TTS_URL=http://coqui-tts:5002
-      - SD_URL=http://stable-diffusion:7860
+      NODE_ENV: "production"
+      DATABASE_URL: "postgresql://postgres:password@postgres:5432/ugo_db"
+      REDIS_URL: "redis://redis:6379"
     depends_on:
       - postgres
       - redis
-      - ollama
-    volumes:
-      - ./uploads:/app/uploads
-      - ./logs:/app/logs
-    restart: unless-stopped
-    
-  # PostgreSQL Database
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:3000/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+
   postgres:
-    image: postgres:15-alpine
+    image: postgres:15
     environment:
       POSTGRES_DB: ugo_db
       POSTGRES_USER: postgres
@@ -32,10 +33,15 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - "5432:5432"
+      - "5433:5432"   # mappa: host 5433 -> container 5432 (ok se hai un Postgres locale)
     restart: unless-stopped
-    
-  # Redis Cache & Sessions
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
   redis:
     image: redis:7-alpine
     command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy allkeys-lru
@@ -44,8 +50,7 @@ services:
     ports:
       - "6379:6379"
     restart: unless-stopped
-    
-  # Ollama AI Language Model (Local LLM)
+
   ollama:
     image: ollama/ollama:latest
     ports:
@@ -56,46 +61,8 @@ services:
       - OLLAMA_MODELS=llama3.1:8b
       - OLLAMA_HOST=0.0.0.0
       - OLLAMA_ORIGINS=*
-    deploy:
-      resources:
-        limits:
-          memory: 8G
-        reservations:
-          memory: 4G
     restart: unless-stopped
-    
-  # Coqui TTS (Open Source Text-to-Speech)
-  coqui-tts:
-    build: 
-      context: ./docker/coqui-tts
-      dockerfile: Dockerfile
-    ports:
-      - "5002:5002"
-    volumes:
-      - tts_models:/models
-      - tts_cache:/cache
-    environment:
-      - MODEL_PATH=/models/tts_model.pth
-      - CACHE_PATH=/cache
-    restart: unless-stopped
-    
-  # Stable Diffusion (Open Source Image Generation)
-  stable-diffusion:
-    build:
-      context: ./docker/stable-diffusion
-      dockerfile: Dockerfile
-    ports:
-      - "7860:7860"
-    volumes:
-      - sd_models:/models
-      - sd_outputs:/outputs
-    environment:
-      - MODEL_PATH=/models
-      - OUTPUT_PATH=/outputs
-      - CUDA_VISIBLE_DEVICES=0
-    restart: unless-stopped
-    
-  # MediaPipe Face/Object Detection Service
+
   mediapipe-service:
     build:
       context: ./docker/mediapipe
@@ -107,8 +74,7 @@ services:
     environment:
       - CACHE_PATH=/cache
     restart: unless-stopped
-    
-  # Nginx Reverse Proxy & Load Balancer
+
   nginx:
     image: nginx:alpine
     ports:
@@ -121,8 +87,7 @@ services:
     depends_on:
       - ugo-backend
     restart: unless-stopped
-    
-  # Monitoring with Prometheus
+
   prometheus:
     image: prom/prometheus:latest
     ports:
@@ -130,14 +95,8 @@ services:
     volumes:
       - ./docker/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.console.libraries=/etc/prometheus/console_libraries'
-      - '--web.console.templates=/etc/prometheus/consoles'
     restart: unless-stopped
-    
-  # Grafana Dashboard
+
   grafana:
     image: grafana/grafana:latest
     ports:
@@ -148,19 +107,15 @@ services:
     environment:
       - GF_SECURITY_ADMIN_PASSWORD=admin
     restart: unless-stopped
+    depends_on:
+      - postgres
+      - redis
+      - ollama
 
 volumes:
   postgres_data:
   redis_data:
   ollama_data:
-  tts_models:
-  tts_cache:
-  sd_models:
-  sd_outputs:
   mediapipe_cache:
   prometheus_data:
   grafana_data:
-
-networks:
-  default:
-    driver: bridge

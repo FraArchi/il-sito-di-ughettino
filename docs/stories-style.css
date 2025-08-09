@@ -1,14 +1,14 @@
 .story-container {
-    max-width: 800px;
-    margin: 2rem auto;
-    padding: 2rem;
+    max-width: 900px;
+    margin: 1rem auto;
+    padding: 1rem;
 }
 
 .story-scene {
     display: none;
     background: var(--bg-secondary);
     border-radius: var(--border-radius);
-    padding: 2rem;
+    padding: 1rem;
     box-shadow: var(--shadow-light);
     animation: fadeIn 0.5s ease-in;
 }
@@ -18,30 +18,30 @@
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(16px);}
+    to { opacity: 1; transform: translateY(0);}
 }
 
 .story-image {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .story-image img {
     max-width: 100%;
-    height: 300px;
+    height: 220px;
     object-fit: cover;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-light);
 }
 
 .story-text {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .story-text h2 {
     color: var(--primary-color);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .story-text p {
@@ -51,64 +51,62 @@
 }
 
 .story-choices {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
+    display: grid;
+    gap: 0.5rem;
     justify-content: center;
 }
 
 .choice-btn {
     background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-    color: white;
+    color: #fff;
     border: none;
-    padding: 1rem 2rem;
+    padding: 0.85rem 1rem;
     border-radius: 25px;
     cursor: pointer;
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
     transition: var(--transition);
-    min-width: 200px;
+    min-height: 44px;
 }
 
-.choice-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+.choice-btn:active {
+    transform: translateY(1px);
 }
 
 .story-ending {
     background: linear-gradient(135deg, #4CAF50, #45a049);
-    color: white;
-    padding: 1.5rem;
+    color: #fff;
+    padding: 1rem;
     border-radius: var(--border-radius);
-    margin: 1rem 0;
+    margin: 0.75rem 0;
     text-align: center;
 }
 
 .ending-badge {
     display: inline-block;
     background: rgba(255,255,255,0.2);
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.8rem;
     border-radius: 20px;
     font-size: 0.9rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .story-stats {
     background: var(--bg-secondary);
     border-radius: var(--border-radius);
-    padding: 2rem;
-    margin-top: 2rem;
+    padding: 1rem;
+    margin-top: 1rem;
     box-shadow: var(--shadow-light);
 }
 
 .achievement {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    padding: 1rem;
+    gap: 0.75rem;
+    padding: 0.75rem;
     background: rgba(185,122,86,0.1);
     border-radius: 10px;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
 }
 
 .achievement.unlocked {
@@ -128,16 +126,25 @@
     font-size: 1.2rem;
 }
 
-@media (max-width: 768px) {
-    .story-choices {
-        flex-direction: column;
-    }
-    
-    .choice-btn {
-        min-width: auto;
-    }
-    
+@media (min-width: 768px) {
     .story-image img {
-        height: 200px;
+        height: 300px;
     }
+
+    .story-choices{
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(160px, auto);
+    }
+
+    .story-container{
+        padding: 2rem;
+        margin: 2rem auto;
+    }
+}
+
+@media (prefers-color-scheme: dark) { 
+    .story-scene, 
+    .story-stats { 
+        background: rgba(34,30,28,0.92); 
+    } 
 }

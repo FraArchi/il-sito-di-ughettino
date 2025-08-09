@@ -8,10 +8,15 @@ const slowDown = require('express-slow-down');
 require('express-async-errors');
 require('dotenv').config();
 
-// Sentry
-const Sentry = require('@sentry/node');
+// Sentry (lazy-load only if DSN provided and module available)
+let Sentry = null;
 if (process.env.SENTRY_DSN) {
-  Sentry.init({ dsn: process.env.SENTRY_DSN, tracesSampleRate: 0.1 });
+  try {
+    Sentry = require('@sentry/node');
+    Sentry.init({ dsn: process.env.SENTRY_DSN, tracesSampleRate: 0.1 });
+  } catch (e) {
+    console.warn('[@sentry/node] not installed, skipping Sentry init');
+  }
 }
 
 // Prometheus metrics
@@ -55,7 +60,7 @@ app.use((req, res, next) => {
 });
 
 // Sentry request handler
-if (process.env.SENTRY_DSN) {
+if (Sentry) {
   app.use(Sentry.Handlers.requestHandler());
 }
 
@@ -70,8 +75,8 @@ app.use(helmet({
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
       imgSrc: ["'self'", "data:", "https:", "http:"],
-      scriptSrc: ["'self'"],
-    },
+      scriptSrc: ["'self'"]
+    }
   },
   crossOriginEmbedderPolicy: false
 }));
@@ -120,7 +125,7 @@ const limiter = rateLimit({
     error: 'Too many requests from this IP, please try again later.'
   },
   standardHeaders: true,
-  legacyHeaders: false,
+  legacyHeaders: false
 });
 
 app.use('/api/', limiter);
@@ -131,7 +136,7 @@ const speedLimiter = slowDown({
   delayAfter: 50, // Allow 50 requests per windowMs without delay
   delayMs: () => 500, // Add 500ms delay per request after delayAfter
   maxDelayMs: 20000, // Maximum delay of 20 seconds
-  validate: { delayMs: false }, // Disable deprecation warning
+  validate: { delayMs: false } // Disable deprecation warning
 });
 
 app.use('/api/', speedLimiter);
@@ -177,7 +182,7 @@ app.use('/api/ai', aiRoutes);
 app.use('/api/public', publicIntegrationRoutes);
 
 // Sentry error handler
-if (process.env.SENTRY_DSN) {
+if (Sentry) {
   app.use(Sentry.Handlers.errorHandler());
 }
 

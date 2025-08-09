@@ -39,8 +39,17 @@ jobs:
         working-directory: backend
         env:
           NODE_ENV: test
+          LOG_LEVEL: error
+          # Provide dummy Supabase vars so any accidental import won't crash tests
+          SUPABASE_URL: http://localhost:54321
+          SUPABASE_ANON_KEY: test_anon_key
+          SUPABASE_SERVICE_ROLE_KEY: test_service_role_key
+          # Avoid any optional external logging or Sentry in CI
+          SENTRY_DSN: ""
+          LOG_HTTP_ENDPOINT: ""
+          ALLOW_START_WITHOUT_DB: "true"
         run: |
-          if [ -f package.json ]; then npm test || echo "Tests failed (continuing)"; fi
+          if [ -f package.json ]; then npm test; fi
 
       - name: npm audit (high)
         working-directory: backend

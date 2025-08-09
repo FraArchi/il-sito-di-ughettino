@@ -8,35 +8,49 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="ugoAI.css">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#3498db">
+    <meta name="theme-color" content="#b97a56">
+    
+    <!-- Google tag (gtag.js) con Consent Mode -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M7R4KXNLWL"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('consent', 'default', { 'ad_storage': 'denied', 'analytics_storage': 'denied' });
+      gtag('config', 'G-M7R4KXNLWL', { 'anonymize_ip': true, 'allow_ad_personalization_signals': false });
+    </script>
     
     <!-- Prevent indexing for now -->
     <meta name="robots" content="noindex, nofollow">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = { theme: { extend: { colors: { ugo: { primary: '#b97a56', secondary: '#2d1c0f', accent: '#f97316', bg: '#f8f6f0' } }, fontFamily: { display: ['Playfair Display','serif'], sans: ['Inter','ui-sans-serif','system-ui'] }, borderRadius: { xl: '12px' }, boxShadow: { soft: '0 2px 12px rgba(0,0,0,0.1)' } } } };
+    </script>
 </head>
-
 <body>
-    <!-- Header -->
-    <header class="header-sticky">
+    <a class="skip-link" href="#main">Salta al contenuto</a>
+    <header class="header-sticky" role="banner">
         <div class="header-content">
-            <a href="index.html" class="logo">🐾 Ugo</a>
-            
-            <nav class="nav-menu" id="nav-menu">
-                <a href="index.html">Home</a>
-                <a href="dashboard.html">Dashboard</a>
-                <a href="ugo-ai.html" class="active">Ugo AI</a>
-                <a href="#settings" onclick="showSettingsModal()">Impostazioni</a>
-            </nav>
-            
-            <div class="menu-toggle" id="menu-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
+            <a href="index.html" class="logo" aria-label="Home">🐾 Ugo</a>
+            <div class="menu-toggle" id="menu-toggle" aria-label="Apri menu" aria-expanded="false" aria-controls="nav-menu">
+                <span></span><span></span><span></span>
             </div>
+            <nav aria-label="Navigazione principale">
+                <ul id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="dashboard.html">Dashboard</a></li>
+                    <li><a href="ugo-ai.html" class="active">Ugo AI</a></li>
+                    <li><a href="ugo-stories.html">Storie</a></li>
+                    <li><a href="quiz.html">Quiz</a></li>
+                    <li><a href="photobooth.html">Photo Booth</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                </ul>
+            </nav>
         </div>
     </header>
 
     <!-- Main Content -->
-    <main class="main-content">
+    <main id="main" class="main-content">
         <!-- Hero Section -->
         <section class="hero-section">
             <div class="hero-content">
@@ -414,7 +428,42 @@
         });
     </script>
     
+    <!-- Shared Menu Script -->
+    <script src="js/menu.js"></script>
+    <!-- Service Worker Registration -->
+    <script src="js/sw-register.js"></script>
     <!-- Ugo AI Companion -->
-    <script src="ugoAICompanion.js"></script>
+    <script src="ugoAICompanion.js" defer></script>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href="chi-siamo.html">Chi Siamo</a>
+          <a href="contatti.html">Contatti</a>
+          <a href="privacy.html">Privacy Policy</a>
+        </div>
+        <p>&copy; 2025 Il Meraviglioso Mondo di Ugo. Creato con ❤️ da Francesco Archidiacono.</p>
+        <p>Seguimi su Instagram: <a href="https://instagram.com/fra.archi" target="_blank" rel="noopener noreferrer">@fra.archi</a></p>
+      </div>
+    </footer>
+
+    <!-- Menu hamburger script -->
+    <script>
+      document.getElementById('menu-toggle')?.addEventListener('click', function() {
+        const navMenu = document.getElementById('nav-menu');
+        const menuToggle = document.getElementById('menu-toggle');
+        navMenu.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+        const expanded = menuToggle.classList.contains('active');
+        menuToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      });
+      document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', () => {
+          document.getElementById('nav-menu')?.classList.remove('active');
+          document.getElementById('menu-toggle')?.classList.remove('active');
+          document.getElementById('menu-toggle')?.setAttribute('aria-expanded', 'false');
+        });
+      });
+    </script>
 </body>
 </html>

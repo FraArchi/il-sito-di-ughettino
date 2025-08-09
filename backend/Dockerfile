@@ -46,5 +46,5 @@ EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
   CMD curl -f http://localhost:3000/health || exit 1
 
-# Avvio: aspetta postgres e poi parte il server
-CMD ["bash", "/wait-for-it.sh", "postgres:5432", "--", "node", "src/server.js"]
+# Avvio: parametrico per Render (senza wait-for-it)
+CMD ["node", "src/server.js"]

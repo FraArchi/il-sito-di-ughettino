@@ -1,5 +1,7 @@
 const winston = require('winston');
 const path = require('path');
+const http = require('http');
+const https = require('https');
 
 // Create logs directory if it doesn't exist
 const fs = require('fs');
@@ -53,6 +55,30 @@ if (process.env.NODE_ENV !== 'production') {
       })
     )
   }));
+}
+
+// Optional HTTP transport
+if (process.env.LOG_HTTP_ENDPOINT) {
+  class HttpJsonTransport extends winston.Transport {
+    log(info, callback) {
+      const payload = JSON.stringify(info);
+      try {
+        const url = new URL(process.env.LOG_HTTP_ENDPOINT);
+        const lib = url.protocol === 'https:' ? https : http;
+        const req = lib.request({ method: 'POST', hostname: url.hostname, port: url.port || (url.protocol==='https:'?443:80), path: url.pathname, headers: { 'Content-Type': 'application/json' } }, res => {
+          res.resume();
+          callback();
+        });
+        req.on('error', () => callback());
+        req.write(payload);
+        req.end();
+      } catch (e) {
+        // swallow errors to avoid crashing logger
+        callback();
+      }
+    }
+  }
+  logger.add(new HttpJsonTransport());
 }
 
 // Create a stream object for Morgan

@@ -42,6 +42,11 @@ jobs:
         run: |
           if [ -f package.json ]; then npm test || echo "Tests failed (continuing)"; fi
 
+      - name: npm audit (high)
+        working-directory: backend
+        run: |
+          if [ -f package.json ]; then npm audit --audit-level=high || true; fi
+
       - name: Build backend Docker (smoke)
         working-directory: backend
         run: |
@@ -55,6 +60,12 @@ jobs:
       - name: Install Python deps
         run: |
           if [ -f requirements.txt ]; then pip install -r requirements.txt; else echo "No Python deps"; fi
+
+      - name: Python security audit (pip-audit or safety)
+        run: |
+          pip install --upgrade pip >/dev/null 2>&1 || true
+          pip install pip-audit safety >/dev/null 2>&1 || true
+          if [ -f requirements.txt ]; then pip-audit || safety check || true; else echo "No Python requirements"; fi
 
       - name: Pytest (if present)
         run: |

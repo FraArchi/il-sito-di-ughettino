@@ -96,13 +96,36 @@ npm run lint
 npm test
 ```
 
-## 🚀 Prossimi miglioramenti suggeriti
-- Aggiungere antivirus (ClamAV) o scanning API
-- Resizing immagini con `sharp` (già installato) in pipeline upload
-- Captcha / honeypot per mitigare spam
-- Logging strutturato centralizzato + monitoraggio (Sentry)
+## 🔍 Controllo dipendenze & sicurezza
+- Audit Node: `make audit` o `npm audit --audit-level=high` (fix: `make audit-fix`)
+- Dependabot abilitato (.github/dependabot.yml)
+- Python (se presente): `pip install pip-audit && pip-audit` oppure `pip install safety && safety check`
 
----
+## 🧭 Monitoraggio & Error Tracking
+- Sentry (backend): set `SENTRY_DSN` in `.env`
+- Metrics Prometheus: endpoint `/metrics` (prom-client). Esporta uptime, memory, http durations.
+- Logging JSON (Winston). Opzionale invio HTTP impostando `LOG_HTTP_ENDPOINT`.
+
+## 🗃 Backup database (linee guida)
+- Postgres: pianifica `pg_dump` (cron) e invio a S3; retention (es. 7 daily, 4 weekly, 12 monthly).
+- Restore: `psql < dump.sql` su staging; verifica applicazione migrazioni e integrità.
+
+## ⚡ Performance & Caching
+- Compressione gzip abilitata lato backend (compression).
+- Frontend: usa immagini WebP/AVIF con `loading="lazy"`; distribuzione via CDN consigliata.
+
+## 🔎 SEO & GDPR
+- `docs/sitemap.xml` e `docs/robots.txt` presenti. Meta tag base in `docs/index.html`.
+- Cookie banner opt-in già incluso in `docs/index.html` con Consent Mode per GA.
+
+## 🧪 Test automatizzati
+- Backend: `make test` (usa `npm test`), test di integrazione da aggiungere in `backend/tests`.
+- Script curl già pronti: `backend/test_*.sh`.
+- CI esegue lint+test su push/PR.
+
+## 👩‍💻 Developer Experience
+- Makefile con scorciatoie: `make dev`, `make prod`, `make lint`, `make test`, `make audit`, `make audit-fix`.
+- Avvio stack dev rapido: `cp backend/.env.example backend/.env && (cd backend && npm ci && npm run dev)`.
 
 
 

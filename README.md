@@ -1,8 +1,8 @@
 # Il Sito di Ughettino 🌟
 
-![Preview]
+![La Cuccia di Ugo - Official Website]
 
-**Visita il sito live:** [https://fraarchi.github.io/il-sito-di-ughettino/](https://fraarchi.github.io/il-sito-di-ughettino/)
+**Visita il sito ufficiale:** [https://lacucciadiugo.it](https://lacucciadiugo.it)
 
 ---
 

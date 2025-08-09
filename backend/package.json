@@ -68,7 +68,7 @@
     "winston": "^3.11.0"
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.3.1",
+    "@faker-js/faker": "^9.9.0",
     "@types/jest": "^29.5.8",
     "eslint": "^8.54.0",
     "eslint-config-node": "^4.1.0",

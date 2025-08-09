@@ -1,3 +1,9 @@
 git add .
 git commit -m "aggiorna i cambiamenti"
 git push
+
+
+cd /home/fra/ugo/il-sito-di-ughettino
+git add .
+git commit -m "Aggiorna stile e migliora leggibilità testo nella home"
+git push

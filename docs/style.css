@@ -752,7 +752,11 @@ footer a:hover {
   .img-bg h1 { font-size: clamp(1.6rem, 7vw, 2.2rem); margin-bottom: var(--space-sm); }
   .img-bg p { font-size: clamp(1rem, 4.5vw, 1.15rem); }
 
-  main { padding: 5rem var(--space-sm) var(--space-sm); }
+  /* Allarga orizzontalmente riducendo i margini laterali del contenuto */
+  main { padding: 4.5rem 10px var(--space-sm); }
+  article, section { padding: var(--space-md); margin-bottom: var(--space-md); border-radius: 14px; }
+  h2 { font-size: clamp(1.4rem, 6.2vw, 1.7rem); }
+  h3 { font-size: clamp(1.1rem, 5.2vw, 1.3rem); }
   .cards { gap: var(--space-md); }
   .card { padding: var(--space-md); }
   .card img { height: 180px; }

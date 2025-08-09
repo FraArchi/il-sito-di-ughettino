@@ -4,6 +4,16 @@
     padding: 1rem;
 }
 
+@media (max-width: 600px) {
+    .welcome-section{ padding: 1.25rem; border-radius: 12px; }
+    .user-stats{ grid-template-columns: 1fr; }
+    .stat-card{ padding: 0.85rem; }
+    .achievements-section, .activity-section, .daily-challenge, .ugo-mood, .personalization-section{ padding: 0.85rem; border-radius: 12px; }
+    .achievement-item{ padding: 0.85rem; }
+    .challenge-title{ font-size: 1.15rem; }
+    .theme-options{ grid-template-columns: 1fr; }
+}
+
 .welcome-section {
     background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
     color: #fff;

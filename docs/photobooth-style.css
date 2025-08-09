@@ -67,3 +67,8 @@
         grid-template-columns: repeat(6, 1fr);
     }
 }
+
+@media (max-width: 600px) {
+    #stickers { grid-template-columns: repeat(4, 1fr); }
+    .sticker { width: 48px; height: 48px; }
+}

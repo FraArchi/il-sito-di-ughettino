@@ -142,6 +142,12 @@
     }
 }
 
+@media (max-width: 600px) {
+    .story-container { padding: 0.75rem; margin: 0.75rem auto; }
+    .story-image img { height: 180px; }
+    .story-text p { font-size: 1rem; line-height: 1.65; }
+}
+
 @media (prefers-color-scheme: dark) { 
     .story-scene, 
     .story-stats { 

@@ -68,35 +68,33 @@ Esempio (concettuale):
 (policy) allow read for anon
 ```
 
-## 🔐 Protezione segreti
-- Le chiavi service role NON vanno nel frontend.
-- Root `.gitignore` blocca `.env` e log.
-- Aggiungi i secrets nel repository GitHub (Settings > Secrets > Actions):
-  - SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY
-  - SUPABASE_DB_HOST, SUPABASE_DB_PORT, SUPABASE_DB_NAME, SUPABASE_DB_USER, SUPABASE_DB_PASSWORD (se usi SQL init via workflow)
+## 🔒 Sicurezza segreti (.env)
+- I file .env non sono tracciati (root e backend .gitignore configurati).
+- Non committare chiavi reali. Usa `.env.example` come guida e crea `.env` locali.
+- Se chiavi fossero finite in history, rigenerale su Supabase e ripulisci la history (BFG).
 
-## ⚙️ CI/CD Workflow
-File: `.github/workflows/deploy.yml`
-Step principali:
-1. Install dependencies (backend)
-2. Lint & test (non bloccanti)
-3. (Se configurato DB host) esegue `backend/supabase/init.sql`
-4. Build Docker image (placeholder per deploy)
+Pulizia history (esempio):
+```
+bfg --delete-files .env --no-blob-protection
+# oppure
+git filter-branch --force --index-filter 'git rm --cached --ignore-unmatch **/.env' --prune-empty --tag-name-filter cat -- --all
+```
+Poi: force-push e ruota le chiavi sul provider.
 
-Per completare il deploy aggiungi uno step provider (Render / Railway / Fly.io) usando token come secret.
+## 🧰 CI/CD
+- Workflow CI: `.github/workflows/ci.yml`
+  - Lint + Test backend Node.js (v18, v20)
+  - Setup Python 3.11 (se presente) e pytest
+  - Build Docker di smoke test
+- Workflow Deploy: `.github/workflows/deploy.yml` (se config DB disponibile esegue init.sql)
 
-## 🧪 Script di test
-Situati in `backend/`:
-- `test_newsletter_curl.sh`
-- `test_contact_curl.sh`
-- `test_upload_curl.sh`
-
-## 🔧 Refactor principali
-- Rimozione doppia inizializzazione Supabase lato frontend
-- Backend service role isolato
-- Validazione input (express-validator)
-- Rate limiting per rotte pubbliche
-- Upload con nome file sicuro e metadata salvati
+Esecuzione locale test backend:
+```
+cd backend
+npm ci
+npm run lint
+npm test
+```
 
 ## 🚀 Prossimi miglioramenti suggeriti
 - Aggiungere antivirus (ClamAV) o scanning API

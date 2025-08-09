@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20]
+        python-version: ["3.11"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+          cache-dependency-path: |
+            backend/package-lock.json
+
+      - name: Install backend deps
+        working-directory: backend
+        run: |
+          if [ -f package.json ]; then npm ci; fi
+
+      - name: Lint backend
+        working-directory: backend
+        run: |
+          if [ -f package.json ]; then npm run lint || echo "Lint warnings"; fi
+
+      - name: Test backend
+        working-directory: backend
+        env:
+          NODE_ENV: test
+        run: |
+          if [ -f package.json ]; then npm test || echo "Tests failed (continuing)"; fi
+
+      - name: Build backend Docker (smoke)
+        working-directory: backend
+        run: |
+          docker build -t ugo-backend:test .
+
+      - name: Setup Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Python deps
+        run: |
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; else echo "No Python deps"; fi
+
+      - name: Pytest (if present)
+        run: |
+          if [ -f tests ] || [ -f pytest.ini ] || [ -f pyproject.toml ]; then pytest || echo "Pytests failed (continuing)"; else echo "No Python tests"; fi

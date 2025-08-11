@@ -1,5 +1,0 @@
-User-agent: *
-Disallow: /
-
-# Usa questo file solo per ambienti di test/staging.
-# Per attivarlo in produzione rinomina/sostituisci a robots.txt.

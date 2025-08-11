@@ -9,9 +9,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="ugoAI.css">
-  <link rel="stylesheet" href="assets/tw.css">
+  <link rel="stylesheet" href="style.min.css">
+  <link rel="stylesheet" href="ugoAI.min.css">
+  <!-- Rimosso assets/tw.css: file non trovato -->
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#b97a56">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -103,7 +103,10 @@
       <h2 id="chi-ugo-title">Chi è Ugo</h2>
       <div class="chi-sono-content">
         <picture>
-          <img src="Ugo.jpeg" alt="Ugo, Golden Retriever" loading="lazy" class="chi-sono-img">
+          <picture>
+            <source srcset="Ugo.webp" type="image/webp">
+            <img src="Ugo.jpeg" alt="Ugo, Golden Retriever" loading="lazy" class="chi-sono-img" width="400" height="400">
+          </picture>
         </picture>
         <div>
           <h3>Un amico dal cuore grande</h3>
@@ -132,7 +135,10 @@
           </div>
         </article>
         <article class="card">
-          <img src="WhatsApp Image 2025-08-05 at 20.19.14.jpeg" alt="Ugo giocando" loading="lazy">
+          <picture>
+            <source srcset="placeholder.webp" type="image/webp">
+            <img src="placeholder.jpg" alt="Ugo giocando" loading="lazy" width="400" height="300">
+          </picture>
           <div class="card-body">
             <h3>Giochi e risate</h3>
             <p>Il divertimento è più bello se condiviso. Vieni a leggere le storie!</p>
@@ -156,7 +162,10 @@
       <h2 id="divertiti-title">Divertiti con Ugo</h2>
       <div class="cards">
         <article class="card">
-          <img src="golden con sfondo nero.jpg" alt="Quiz su Ugo" loading="lazy">
+          <picture>
+            <source srcset="golden-con-sfondo-nero.webp" type="image/webp">
+            <img src="golden con sfondo nero.jpg" alt="Quiz su Ugo" loading="lazy" width="400" height="300">
+          </picture>
           <div class="card-body">
             <h3>Quanto conosci Ugo?</h3>
             <p>Mettiti alla prova con il nostro quiz!</p>
@@ -164,7 +173,10 @@
           </div>
         </article>
         <article class="card">
-          <img src="WhatsApp Image 2025-08-05 at 20.19.13.jpeg" alt="Photo Booth di Ugo" loading="lazy">
+          <picture>
+            <source srcset="placeholder.webp" type="image/webp">
+            <img src="placeholder.jpg" alt="Photo Booth di Ugo" loading="lazy" width="400" height="300">
+          </picture>
           <div class="card-body">
             <h3>Photo Booth</h3>
             <p>Crea scatti divertenti con Ugo e condividili!</p>
@@ -221,7 +233,7 @@
         <div class="footer-links">
           <a href="chi-siamo.html">Chi Siamo</a>
           <a href="contatti.html">Contatti</a>
-          <a href="privacy.html">Privacy Policy</a>
+          <a href="privacy-policy.html">Privacy Policy</a>
         </div>
         <p>&copy; 2025 Il Meraviglioso Mondo di Ugo. Creato con ❤️ da Francesco Archidiacono.</p>
         <p>Seguimi su Instagram: <a href="https://instagram.com/fra.archi" target="_blank" rel="noopener noreferrer">@fra.archi</a></p>
@@ -251,7 +263,7 @@
   <script src="notifications.js" defer></script>
 
   <!-- Replace inline menu script with shared file -->
-  <script src="js/menu.js" defer></script>
+  <script src="js/menu.min.js" defer></script>
 
   <!-- Disqus Script deferred -->
   <script>

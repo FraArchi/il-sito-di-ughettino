@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "cssnano": "^7.1.0",
+    "terser": "^5.43.1"
+  }
+}

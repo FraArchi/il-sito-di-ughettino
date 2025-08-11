@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.ilsitodiugo.it/sitemap.xml
+Sitemap: https://lacucciadiugo.it/sitemap.xml

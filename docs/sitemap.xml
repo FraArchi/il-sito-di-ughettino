@@ -58,7 +58,7 @@
     <priority>0.5</priority>
   </url>
 
-  <!-- Pagine legali (aggiungi quando disponibili) -->
+  <!-- Pagine legali (aggiungi solo quando disponibili) -->
   <!--
   <url>
     <loc>https://lacucciadiugo.it/privacy-policy.html</loc>

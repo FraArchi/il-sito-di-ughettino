@@ -5,7 +5,7 @@
   <!-- Homepage -->
   <url>
     <loc>https://lacucciadiugo.it/</loc>
-    <lastmod>2025-08-11T01:14:45+00:00</lastmod>
+    <lastmod>2025-08-11T01:39:51+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -13,7 +13,7 @@
   <!-- Contenuti principali -->
   <url>
     <loc>https://lacucciadiugo.it/ugo-stories.html</loc>
-    <lastmod>2025-08-11T01:14:45+00:00</lastmod>
+    <lastmod>2025-08-11T01:39:51+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -21,19 +21,19 @@
   <!-- Funzionalità interattive -->
   <url>
     <loc>https://lacucciadiugo.it/quiz.html</loc>
-    <lastmod>2025-08-11T01:14:45+00:00</lastmod>
+    <lastmod>2025-08-11T01:39:51+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lacucciadiugo.it/photobooth.html</loc>
-    <lastmod>2025-08-11T01:14:45+00:00</lastmod>
+    <lastmod>2025-08-11T01:39:51+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://lacucciadiugo.it/ugo-ai.html</loc>
-    <lastmod>2025-08-11T01:14:45+00:00</lastmod>
+    <lastmod>2025-08-11T01:39:51+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -41,19 +41,19 @@
   <!-- Utility -->
   <url>
     <loc>https://lacucciadiugo.it/faq.html</loc>
-    <lastmod>2025-08-11T01:14:45+00:00</lastmod>
+    <lastmod>2025-08-11T01:39:51+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://lacucciadiugo.it/dashboard.html</loc>
-    <lastmod>2025-08-11T01:14:45+00:00</lastmod>
+    <lastmod>2025-08-11T01:39:51+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://lacucciadiugo.it/analytics.html</loc>
-    <lastmod>2025-08-11T01:14:45+00:00</lastmod>
+    <lastmod>2025-08-11T01:39:51+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -62,13 +62,13 @@
   <!--
   <url>
     <loc>https://lacucciadiugo.it/privacy-policy.html</loc>
-    <lastmod>2025-08-11T01:14:45+00:00</lastmod>
+    <lastmod>2025-08-11T01:39:51+00:00</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://lacucciadiugo.it/cookie-policy.html</loc>
-    <lastmod>2025-08-11T01:14:45+00:00</lastmod>
+    <lastmod>2025-08-11T01:39:51+00:00</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

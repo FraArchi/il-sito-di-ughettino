@@ -5,235 +5,268 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Il Meraviglioso Mondo di Ugo - Home</title>
-  <meta name="description" content="Scopri le avventure, le foto e i pensieri di Ugo, un Golden Retriever speciale. Un sito per gli amanti dei cani.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.min.css">
-  <link rel="stylesheet" href="ugoAI.min.css">
-  <!-- Rimosso assets/tw.css: file non trovato -->
+  <meta name="description" content="Scopri le avventure, le foto e i pensieri filosofici di Ugo, un Golden Retriever speciale. Un sito per tutti gli amanti dei cani.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="ugoAI.css">
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#b97a56">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="apple-mobile-web-app-title" content="Mondo Ugo">
   <link rel="apple-touch-icon" href="icons/icon-192x192.png">
-  <link rel="preload" as="image" href="ugo-bg.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "lacucciadiugo",
+  "url": "https://lacucciadiugo.it",
+  "logo": "https://lacucciadiugo.it/assets/logo-ugo1.png"
+}
+</script>
+<!-- Favicon -->
+<link rel="icon" href="/favicon-ugo.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/favicon-ugo.ico" type="image/x-icon">
+
+<!-- Favicon in PNG (per dimensioni multiple) -->
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-ugo.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-ugo.png">
+
+<!-- Apple Touch Icon (per iPhone, iPad) -->
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<!-- Web App Manifest (opzionale, per PWA) -->
+<link rel="manifest" href="/site.webmanifest">
 
   <!-- Google tag (gtag.js) con Consent Mode -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-M7R4KXNLWL"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){ dataLayer.push(arguments); }
+
+    // Default: tutto negato finché l'utente non decide
     gtag('js', new Date());
-    gtag('consent', 'default', { 'ad_storage': 'denied', 'analytics_storage': 'denied' });
-    gtag('config', 'G-M7R4KXNLWL', { 'anonymize_ip': true, 'allow_ad_personalization_signals': false });
+    gtag('consent', 'default', {
+      'ad_storage': 'denied',
+      'analytics_storage': 'denied'
+    });
+
+    // Config base: tracking con privacy se consenso mancante
+    gtag('config', 'G-M7R4KXNLWL', {
+      'anonymize_ip': true,
+      'allow_ad_personalization_signals': false
+    });
   </script>
 
-  <!-- Tailwind CDN + tema Ugo -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            ugo: { primary: '#b97a56', secondary: '#2d1c0f', accent: '#f97316', bg: '#f8f6f0' }
-          },
-          fontFamily: {
-            display: ['Playfair Display', 'serif'],
-            sans: ['Inter', 'ui-sans-serif', 'system-ui']
-          },
-          borderRadius: { 'xl': '12px' },
-          boxShadow: { soft: '0 2px 12px rgba(0,0,0,0.1)' }
-        }
-      }
-    }
-  </script>
-  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-  <link rel="preconnect" href="https://il-sito-di-ughettino.disqus.com" crossorigin>
-  <meta property="og:title" content="Il Meraviglioso Mondo di Ugo">
-  <meta property="og:description" content="Storie, foto e community dedicate a Ugo, Golden Retriever speciale.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://fraarchi.github.io/il-sito-di-ughettino/">
-  <meta property="og:image" content="https://fraarchi.github.io/il-sito-di-ughettino/Ugo.jpeg">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Il Meraviglioso Mondo di Ugo">
-  <meta name="twitter:description" content="Storie, foto e community dedicate a Ugo, Golden Retriever speciale.">
-  <meta name="twitter:image" content="https://fraarchi.github.io/il-sito-di-ughettino/Ugo.jpeg">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "lacucciadiugo,
+  "url": "https://lacucciadiugo.it",
+  "logo": "https://lacucciadiugo.it/assets/logo-ugo1.png"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Il Meraviglioso Mondo di Ugo",
+  "url": "https://lacucciadiugo.it/index.html",
+  "description": "Scopri le avventure, le foto e i pensieri filosofici di Ugo, un Cane speciale.",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "La Cuccia di Ugo",
+    "url": "https://lacucciadiugo.it",
+    "logo": "https://lacucciadiugo.it/assets/logo-ugo1.png"
+  }
+}
+</script>
+
 </head>
 
+
+
 <body>
-  <a class="skip-link" href="#main">Salta al contenuto</a>
   <!-- Header fisso con navigazione -->
-  <header class="header-sticky" role="banner">
+  <header class="header-sticky">
     <div class="header-content">
-      <a href="index.html" class="logo" aria-label="Home">🐾 Ugo</a>
-      <div class="menu-toggle" id="menu-toggle" aria-label="Apri menu" aria-expanded="false" aria-controls="nav-menu">
-        <span></span><span></span><span></span>
+      <a href="index.html" class="logo">🐾 Ugo</a>
+      
+      <!-- Menu hamburger per mobile -->
+      <div class="menu-toggle" id="menu-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
-      <nav aria-label="Navigazione principale">
+      
+      <nav>
         <ul id="nav-menu">
           <li><a href="index.html" class="active">Home</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
           <li><a href="ugo-stories.html">Storie</a></li>
+          <li><a href="giochi.html">Giochi</a></li>
+          <li><a href="foto.html">Galleria</a></li>
+          <li><a href="amici.html">Amici</a></li>
           <li><a href="quiz.html">Quiz</a></li>
           <li><a href="photobooth.html">Photo Booth</a></li>
-          <li><a href="ugo-ai.html">Ugo AI</a></li>
           <li><a href="faq.html">FAQ</a></li>
-          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="logo.html">Logo</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <main id="main">
-    <!-- Hero Section -->
-    <section class="img-bg" aria-label="Hero" style="background-image:url('ugo-bg.jpg')">
-      <div class="scuro">
-        <h1>Il meraviglioso mondo di Ugo 🐾</h1>
-        <p>Storie vere, risate sincere e una community di amanti dei cani.</p>
-        <div style="margin-top:1rem">
-          <a class="button-cta" href="#newsletter" style="background:#ffd59e;color:#2d1c0f;padding:0.8rem 1.2rem;border-radius:10px;text-decoration:none;font-weight:600">Unisciti alla community</a>
-        </div>
+  <main>
+    <header class="ugo-header">
+      <h1>Il meraviglioso mondo di Ugo 🐾</h1>
+      <p>di Francesco Archidiacono - compagno di vita di Ugo</p>
+    </header>
+
+    <div class="ugo-bg">
+      <div class="ugo-overlay">
+        <h1>Chi è Ugo?</h1>
+        <p>Ugo è un cane dal cuore grande...</p>
+        <h2>Le giornate tipo di Ugo</h2>
+        <p>Dal risveglio alle 7:00 con un grande sbadiglio...</p>
       </div>
+    </div>
+
+    <article>
+      <h1>Avventura nella via sopra casa con Ugo 🌳</h1>
+      <p>Oggi Ugo è andato nel bosco...</p>
+    </article>
+
+    <article>
+      <h1>I 5 motivi per cui Ugo è un filosofo 🧠</h1>
+      <ul>
+        <li>Medita fissando il vuoto</li>
+        <li>Ignora il caos, ma mai un biscotto</li>
+        <li>Ha la pazienza di un saggio</li>
+        <li>...</li>
+      </ul>
+    </article>
+
+    <hr>
+    <section>
+      <h1>La semantica secondo Ugo 🐾</h1>
+      <p>“Semantica? Grr... suona difficile, ma è più facile di quanto sembri!” – Ugo</p>
+      <h2>Cos'è l'HTML semantico?</h2>
+      <p>Usiamo tag come &lt;main&gt;, &lt;section&gt;, &lt;article&gt; per dare significato ai contenuti.</p>
+
+      <figure>
+        <picture>
+          <source srcset="Ugo.webp" type="image/webp">
+          <img src="Ugo.jpeg" alt="Ugo, il cane che ama l'HTML" width="300" height="400" class="ridotta" loading="lazy">
+        </picture>
+        <figcaption>Ugo riflette sul significato dei tag semantici</figcaption>
+      </figure>
+
+      <p>L'HTML semantico aiuta anche i lettori con disabilità visive...</p>
     </section>
 
-    <!-- Chi è Ugo -->
-    <section id="chi-e-ugo" aria-labelledby="chi-ugo-title">
-      <h2 id="chi-ugo-title">Chi è Ugo</h2>
+    <div class="scuro" style="background-image: url('golden-con-sfondo-nero.jpg'); background-size: cover; background-position: center; color: #fff; padding: 2em;">
+      <div style="background: rgba(0,0,0,0.5); padding: 1em; border-radius: 10px;">
+        <h1>Perché Ugo è così bello?</h1>
+        <p>Ugo è così bello perché è autentico, vero, puro.</p>
+        <aside>
+          <h2>Post correlati</h2>
+          <h3>Fai una domanda a Ugo!</h3>
+          <ul>
+            <li><a href="faq.html">FAQ</a></li> 
+          </ul>
+        </aside>
+      </div>
+    </div>
+
+    <!-- Sezione Chi Sono -->
+    <section id="chi-sono">
+      <h2>Chi c'è dietro al sito?</h2>
       <div class="chi-sono-content">
         <picture>
-          <picture>
-            <source srcset="Ugo.webp" type="image/webp">
-            <img src="Ugo.jpeg" alt="Ugo, Golden Retriever" loading="lazy" class="chi-sono-img" width="400" height="400">
-          </picture>
+          <source srcset="ugo-bg.webp" type="image/webp">
+          <img src="ugo-bg.jpg" alt="Francesco Archidiacono con Ugo" loading="lazy" class="chi-sono-img">
         </picture>
         <div>
-          <h3>Un amico dal cuore grande</h3>
-          <p>Ugo è un Cane curioso, dolce e un po' filosofo. Con Francesco, il suo umano, condivide avventure quotidiane fatte di passeggiate nei boschi, giochi e attimi di pura serenità.</p>
-          <p>Questo sito nasce per condividere ciò che Ugo ci insegna: vivere il presente, cercare il bello nelle piccole cose e costruire legami sinceri.</p>
+          <h3>Francesco & Ugo: Una storia di amicizia</h3>
+          <p>Ciao! Sono Francesco, un appassionato di tecnologia e da qualche anno, il compagno di avventure di Ugo. Questo sito è nato per condividere la gioia che un cane come lui sa portare nella vita di tutti i giorni. Qui troverete le sue (e le nostre) storie, i suoi pensieri profondi e, spero, un po' di ispirazione.</p>
+          <p>Il nostro obiettivo? Creare una piccola community di amanti dei cani e celebrare i nostri amici a quattro zampe.</p>
         </div>
-      </div>
-    </section>
-
-    <!-- Le Sue Avventure -->
-    <section id="avventure" aria-labelledby="avventure-title">
-      <h2 id="avventure-title">Le Sue Avventure</h2>
-      <div class="cards">
-        <article class="card">
-          <img src="Ugo.jpeg" alt="Ugo in posa" loading="lazy">
-          <div class="card-body">
-            <h3>Una passeggiata speciale</h3>
-            <p>Tra profumi di bosco e code che scodinzolano. Piccole grandi felicità.</p>
-          </div>
-        </article>
-        <article class="card">
-          <img src="ugo-bg.jpg" alt="Ugo in natura" loading="lazy">
-          <div class="card-body">
-            <h3>Momenti di quiete</h3>
-            <p>Un raggio di sole, un prato morbido, un respiro profondo.</p>
-          </div>
-        </article>
-        <article class="card">
-          <picture>
-            <source srcset="placeholder.webp" type="image/webp">
-            <img src="placeholder.jpg" alt="Ugo giocando" loading="lazy" width="400" height="300">
-          </picture>
-          <div class="card-body">
-            <h3>Giochi e risate</h3>
-            <p>Il divertimento è più bello se condiviso. Vieni a leggere le storie!</p>
-          </div>
-        </article>
-      </div>
-      <div style="text-align:center;margin-top:1rem">
-        <a class="button-cta" href="ugo-stories.html">Leggi tutte le storie</a>
-      </div>
-    </section>
-
-    <!-- Community CTA -->
-    <section id="community" class="cta-section" aria-labelledby="community-title">
-      <h2 id="community-title">Una community che ama i cani</h2>
-      <p>Condividiamo consigli, foto e storie. Rimani aggiornato con la newsletter e partecipa alle conversazioni.</p>
-      <a class="button-cta" href="#newsletter">Iscriviti alla newsletter</a>
-    </section>
-
-    <!-- Divertiti: Quiz e Photo Booth -->
-    <section id="divertiti" aria-labelledby="divertiti-title">
-      <h2 id="divertiti-title">Divertiti con Ugo</h2>
-      <div class="cards">
-        <article class="card">
-          <picture>
-            <source srcset="golden-con-sfondo-nero.webp" type="image/webp">
-            <img src="golden con sfondo nero.jpg" alt="Quiz su Ugo" loading="lazy" width="400" height="300">
-          </picture>
-          <div class="card-body">
-            <h3>Quanto conosci Ugo?</h3>
-            <p>Mettiti alla prova con il nostro quiz!</p>
-            <a class="button-cta" href="quiz.html">Inizia il Quiz</a>
-          </div>
-        </article>
-        <article class="card">
-          <picture>
-            <source srcset="placeholder.webp" type="image/webp">
-            <img src="placeholder.jpg" alt="Photo Booth di Ugo" loading="lazy" width="400" height="300">
-          </picture>
-          <div class="card-body">
-            <h3>Photo Booth</h3>
-            <p>Crea scatti divertenti con Ugo e condividili!</p>
-            <a class="button-cta" href="photobooth.html">Apri il Photo Booth</a>
-          </div>
-        </article>
       </div>
     </section>
 
     <!-- Newsletter CTA -->
-    <section id="newsletter" class="cta-section" aria-labelledby="newsletter-title">
-      <h2 id="newsletter-title">Le Avventure di Ugo, ogni settimana!</h2>
-      <p>Iscriviti per non perdere post, foto esclusive e consigli.</p>
-      <form id="newsletter-form" aria-label="Modulo iscrizione newsletter">
-        <label for="newsletter-email" class="sr-only">Indirizzo email</label>
-        <input id="newsletter-email" type="email" name="email" placeholder="La tua email" required aria-required="true" aria-describedby="newsletter-feedback" />
-        <button id="newsletter-submit" type="submit">Iscrivimi!</button>
+    <section id="newsletter" class="cta-section">
+      <h2>Le Avventure di Ugo, ogni settimana!</h2>
+      <p>Iscriviti alla nostra newsletter per non perdere gli ultimi post, foto esclusive e consigli per il tuo cane.</p>
+      <form id="newsletter-form">
+        <input type="email" name="email" placeholder="La tua email migliore" required aria-label="Indirizzo email per la newsletter">
+        <button type="submit">Iscrivimi!</button>
       </form>
-      <p id="newsletter-feedback" class="feedback-message" role="status" aria-live="polite"></p>
+      <p id="newsletter-feedback" class="feedback-message"></p>
     </section>
 
-    <!-- Contatto & Upload -->
-    <section id="contact-upload" class="cta-section" aria-labelledby="contatti-title">
-      <h2 id="contatti-title">Contattaci</h2>
-      <p>Hai una domanda o vuoi inviarci una foto? Usa il modulo.</p>
-      <form id="contact-form" aria-label="Modulo contatto">
-        <label for="contact-name" class="sr-only">Nome</label>
-        <input id="contact-name" name="name" type="text" placeholder="Il tuo nome" required aria-required="true">
-        <label for="contact-email" class="sr-only">Email</label>
-        <input id="contact-email" name="email" type="email" placeholder="La tua email" required aria-required="true">
-        <label for="contact-message" class="sr-only">Messaggio</label>
-        <textarea id="contact-message" name="message" rows="4" placeholder="Scrivi il tuo messaggio..." required aria-required="true"></textarea>
-        <button id="contact-submit" type="submit">Invia messaggio</button>
-      </form>
-      <p id="contact-feedback" class="feedback-message" role="status" aria-live="polite"></p>
+    <!-- Ugo Quiz CTA -->
+    <section id="quiz-cta" class="cta-section">
+      <h2>Quanto conosci Ugo?</h2>
+      <p>Mettiti alla prova con il nostro quiz e scopri se sei un vero fan di Ugo!</p>
+      <a href="quiz.html" class="button-cta">Inizia il Quiz!</a>
+    </section>
 
-      <h3>Carica una foto</h3>
-      <p>La foto verrà salvata nel bucket "uploads".</p>
-      <form id="upload-form" aria-label="Caricamento file">
-        <input id="upload-file" type="file" name="file" accept="image/*" required aria-required="true">
-        <button id="upload-submit" type="submit">Carica</button>
-      </form>
-      <p id="upload-feedback" class="feedback-message" role="status" aria-live="polite"></p>
+    <!-- Photo Booth CTA -->
+    <section id="photobooth-cta" class="cta-section">
+      <h2>Crea un capolavoro con il tuo cane!</h2>
+      <p>Usa il nostro Photo Booth per aggiungere cornici e adesivi a tema Ugo alle foto del tuo amico a quattro zampe.</p>
+      <a href="photobooth.html" class="button-cta">Prova il Photo Booth!</a>
     </section>
 
     <!-- Sezione Commenti Disqus -->
-    <section id="commenti" aria-labelledby="commenti-title">
-      <h2 id="commenti-title">Dite la vostra!</h2>
+    <section id="commenti">
+      <h2>Dite la vostra!</h2>
       <div id="disqus_thread"></div>
     </section>
+
+    <!-- Assets Section -->
+    <section id="assets">
+      <h2>Assets del sito</h2>
+      <div class="assets-container">
+         <article>
+           <h3>Logo</h3>
+           <figure>
+             <img src="https://lacucciadiugo.it/assets/logo-ugo1.png" alt="Logo Ugo">
+             <figcaption>Logo ufficiale di Ugo</figcaption>
+           </figure>
+         </article>
+         <article>
+           <h3>Favicon</h3>
+           <p>Favicon in formato ICO e PNG:</p>
+           <div>
+             <img src="/favicon-ugo.ico" alt="Favicon ICO" style="width:64px;height:64px;">
+             <img src="/favicon-ugo.png" alt="Favicon PNG" style="width:64px;height:64px;">
+           </div>
+         </article>
+         <article>
+           <h3>Apple Touch Icon</h3>
+           <figure>
+             <img src="/apple-touch-icon.png" alt="Apple Touch Icon" style="width:120px;height:120px;">
+             <figcaption>Apple touch icon per iOS</figcaption>
+           </figure>
+         </article>
+         <article>
+           <h3>Manifest</h3>
+           <p>Il file <code>manifest.json</code> definisce le icone e le proprietà per la PWA del sito.</p>
+           <a href="manifest.json" target="_blank">Visualizza manifest.json</a>
+         </article>
+      </div>
+    </section>
+    <!-- Fine Assets Section -->
 
     <footer>
       <div class="footer-content">
         <div class="footer-links">
           <a href="chi-siamo.html">Chi Siamo</a>
           <a href="contatti.html">Contatti</a>
-          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="privacy.html">Privacy Policy</a>
         </div>
         <p>&copy; 2025 Il Meraviglioso Mondo di Ugo. Creato con ❤️ da Francesco Archidiacono.</p>
         <p>Seguimi su Instagram: <a href="https://instagram.com/fra.archi" target="_blank" rel="noopener noreferrer">@fra.archi</a></p>
@@ -242,64 +275,96 @@
   </main>
 
   <!-- 🍪 Banner consenso -->
-  <div id="cookie-banner">
+  <div id="cookie-banner" style="position:fixed;bottom:32px;left:50%;transform:translateX(-50%);background:#ffe4b2;color:#2d1c0f;padding:56px 80px 48px 80px;border-radius:32px;box-shadow:0 8px 48px #b97a5655;z-index:9999;display:none;font-family:'Segoe UI',Arial,sans-serif;font-size:2em;font-weight:700;letter-spacing:0.03em;min-width:520px;max-width:90vw;">
     <span style="font-size:1.2em;">🍪</span> Questo sito usa i cookie per migliorare la tua esperienza.<br>
-    <button id="cookie-accept">Accetta</button>
+    <button id="cookie-accept" style="background:#b97a56;color:#fff;border:none;border-radius:12px;padding:16px 32px;margin-top:18px;cursor:pointer;font-weight:bold;font-size:1.15em;box-shadow:0 2px 8px #b97a5633;">Accetta</button>
   </div>
+
   <script>
-    function setCookie(name, value, days) { const expires = new Date(Date.now() + days * 864e5).toUTCString(); document.cookie = name + "=" + encodeURIComponent(value) + "; expires=" + expires + "; path=/; SameSite=Lax; Secure"; }
-    function getCookie(name) { const value = "; " + document.cookie; const parts = value.split("; " + name + "="); if (parts.length === 2) return decodeURIComponent(parts.pop().split(";").shift()); }
-    if (!getCookie('cookie_consent')) { document.getElementById('cookie-banner').style.display = 'block'; }
+    function setCookie(name, value, days) {
+      const expires = new Date(Date.now() + days * 864e5).toUTCString();
+      document.cookie = name + "=" + encodeURIComponent(value) + "; expires=" + expires + "; path=/; SameSite=Lax; Secure";
+    }
+
+    function getCookie(name) {
+      const value = "; " + document.cookie;
+      const parts = value.split("; " + name + "=");
+      if (parts.length === 2) return decodeURIComponent(parts.pop().split(";").shift());
+    }
+
+    // Mostra il banner solo se non c'è il cookie
+    if (!getCookie('cookie_consent')) {
+      document.getElementById('cookie-banner').style.display = 'block';
+    }
+
     document.getElementById('cookie-accept').onclick = function () {
       setCookie('cookie_consent', 'accepted', 365);
       document.getElementById('cookie-banner').style.display = 'none';
+
+      // Aggiorna lo stato del consenso
       if (typeof gtag === 'function') {
-        gtag('consent', 'update', { 'ad_storage': 'granted', 'analytics_storage': 'granted' });
+        gtag('consent', 'update', {
+          'ad_storage': 'granted',
+          'analytics_storage': 'granted'
+        });
+
+        // Ora si può eseguire il config
         gtag('config', 'G-M7R4KXNLWL');
       }
     };
   </script>
-  <script src="cookie-demo.js" defer></script>
-  <script src="notifications.js" defer></script>
-
-  <!-- Replace inline menu script with shared file -->
-  <script src="js/menu.min.js" defer></script>
-
-  <!-- Disqus Script deferred -->
+  <script src="cookie-demo.js"></script>
+  <script src="notifications.js"></script>
+  
+  <!-- Menu hamburger script -->
   <script>
-    (window.requestIdleCallback || function(cb){ setTimeout(cb, 1); })(function(){
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      const navMenu = document.getElementById('nav-menu');
+      const menuToggle = document.getElementById('menu-toggle');
+      
+      navMenu.classList.toggle('active');
+      menuToggle.classList.toggle('active');
+    });
+    
+    // Chiudi menu quando si clicca su un link
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('nav-menu').classList.remove('active');
+        document.getElementById('menu-toggle').classList.remove('active');
+      });
+    });
+  </script>
+
+  <!-- Disqus Script -->
+  <script>
+    var disqus_config = function () {
+      this.page.url = window.location.href;
+      this.page.identifier = window.location.pathname;
+    };
+    (function() {
       var d = document, s = d.createElement('script');
       s.src = 'https://il-sito-di-ughettino.disqus.com/embed.js';
       s.setAttribute('data-timestamp', +new Date());
       (d.head || d.body).appendChild(s);
-    });
+    })();
   </script>
   <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
-  <!-- Moduli frontend → backend API -->
-  <script type="module" src="js/supabase-client.js"></script>
-  <script type="module">
-    import { subscribeNewsletter, submitContact, uploadFile } from './js/supabase-client.js';
-    function disable(el, state) { if (el) el.disabled = state; }
-    const newsletterForm = document.getElementById('newsletter-form');
-    const newsletterFeedback = document.getElementById('newsletter-feedback');
-    newsletterForm?.addEventListener('submit', async (e) => {
-      e.preventDefault(); const emailInput = document.getElementById('newsletter-email'); const btn = document.getElementById('newsletter-submit'); const email = emailInput.value.trim(); newsletterFeedback.textContent = 'Invio...'; disable(btn, true);
-      try { await subscribeNewsletter(email); newsletterFeedback.textContent = 'Iscrizione completata!'; newsletterForm.reset(); } catch (err) { newsletterFeedback.textContent = 'Errore: ' + (err.message || 'Operazione fallita'); } finally { disable(btn, false); }
-    });
-    const contactForm = document.getElementById('contact-form');
-    const contactFeedback = document.getElementById('contact-feedback');
-    contactForm?.addEventListener('submit', async (e) => {
-      e.preventDefault(); const name = document.getElementById('contact-name').value.trim(); const email = document.getElementById('contact-email').value.trim(); const message = document.getElementById('contact-message').value.trim(); const btn = document.getElementById('contact-submit'); contactFeedback.textContent = 'Invio...'; disable(btn, true);
-      try { await submitContact({ name, email, message }); contactFeedback.textContent = 'Messaggio inviato!'; contactForm.reset(); } catch (err) { contactFeedback.textContent = 'Errore: ' + (err.message || 'Operazione fallita'); } finally { disable(btn, false); }
-    });
-    const uploadForm = document.getElementById('upload-form');
-    const uploadFeedback = document.getElementById('upload-feedback');
-    uploadForm?.addEventListener('submit', async (e) => {
-      e.preventDefault(); const fileInput = document.getElementById('upload-file'); const btn = document.getElementById('upload-submit'); const file = fileInput.files[0]; if (!file) { uploadFeedback.textContent = 'Seleziona un file.'; return; } uploadFeedback.textContent = 'Caricamento...'; disable(btn, true);
-      try { const { publicUrl } = await uploadFile(file); uploadFeedback.innerHTML = 'File caricato: <a href="' + publicUrl + '" target="_blank" rel="noopener">Apri</a>'; uploadForm.reset(); } catch (err) { uploadFeedback.textContent = 'Errore: ' + (err.message || 'Operazione fallita'); } finally { disable(btn, false); }
+  <!-- Newsletter Form Script -->
+  <script>
+    document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const feedback = document.getElementById('newsletter-feedback');
+      feedback.textContent = 'Grazie per esserti iscritto!';
+      feedback.style.color = 'green';
+      setTimeout(() => {
+        feedback.textContent = '';
+      }, 3000);
+      this.reset();
     });
   </script>
-  <script src="js/sw-register.js" defer></script>
+  
+  <!-- Ugo AI Companion -->
+  <script src="ugoAICompanion.js"></script>
 </body>
 </html>

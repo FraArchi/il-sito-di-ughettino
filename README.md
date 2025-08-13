@@ -1,8 +1,10 @@
-# Il Sito di Ughettino 🌟
+# La Cuccia di Ugo 🐾 - Il cane più buono del mondo
 
 ![La Cuccia di Ugo - Official Website]
 
 **Visita il sito ufficiale:** [https://lacucciadiugo.it](https://lacucciadiugo.it)
+
+*Aggiornato: 13 agosto 2025 - Sito ottimizzato per Google con schema.org e favicon!* 🎉
 
 ---
 

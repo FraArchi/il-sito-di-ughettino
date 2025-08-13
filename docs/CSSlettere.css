@@ -1,0 +1,113 @@
+/* lettere.css - Il cuore della bacheca di Ugo */
+
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  background: #fdf8f3;
+  color: #4a3f35;
+  line-height: 1.8;
+  margin: 0;
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+header {
+  text-align: center;
+  margin: 40px 0;
+}
+
+h1 {
+  color: #d4a76a;
+  font-size: 2.5em;
+  margin: 0;
+  font-weight: normal;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+h1::before {
+  content: "📬 ";
+}
+
+p.intro {
+  font-style: italic;
+  color: #776c5c;
+  font-size: 1.1em;
+  margin: 20px 40px;
+}
+
+.lettera-container {
+  display: grid;
+  gap: 30px;
+  margin: 50px 0;
+}
+
+.lettera {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  border-left: 5px solid #e8c89c;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.lettera:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+}
+
+.lettera p {
+  margin: 0 0 15px 0;
+}
+
+.lettera p:last-child {
+  margin-bottom: 0;
+}
+
+.firma {
+  font-style: italic;
+  text-align: right;
+  color: #8b5a2b;
+  margin-top: 20px;
+}
+
+.firma::before {
+  content: "— ";
+}
+
+.call-to-action {
+  text-align: center;
+  padding: 30px;
+  background: #f0e8d0;
+  border-radius: 12px;
+  margin: 40px 0;
+  font-style: italic;
+  color: #6b5e4c;
+}
+
+.call-to-action a {
+  color: #8b5a2b;
+  text-decoration: none;
+  font-weight: bold;
+  border-bottom: 2px dotted #d4a76a;
+  padding-bottom: 2px;
+}
+
+footer {
+  text-align: center;
+  margin-top: 60px;
+  color: #aaa;
+  font-size: 0.9em;
+}
+
+footer img {
+  width: 60px;
+  opacity: 0.8;
+  margin: 10px;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+  transition: transform 0.3s ease;
+}
+
+footer img:hover {
+  transform: rotate(10deg) scale(1.1);
+}

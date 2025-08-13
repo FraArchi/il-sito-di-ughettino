@@ -655,7 +655,7 @@ article:hover, section:hover {
 }
 
 /* Ugo overlay section */
-.ugo-bg { position: relative; background-image: url('Ugo.jpeg'); background-size: cover; background-position: center; padding: var(--space-lg) 0; border-radius: 16px; margin-bottom: var(--space-lg); box-shadow: 0 2px 16px #2224; }
+.ugo-bg { position: relative; background-image: url('../IMMAGINI DI UGOO/Ugo.jpeg'); background-size: cover; background-position: center; padding: var(--space-lg) 0; border-radius: 16px; margin-bottom: var(--space-lg); box-shadow: 0 2px 16px #2224; }
 .ugo-overlay { background: rgba(255,255,255,0.92); color: #2d1c0f; max-width: 600px; margin: 0 auto; padding: var(--space-lg) var(--space-md); border-radius: 14px; box-shadow: 0 4px 24px #2223; }
 .ugo-overlay h1, .ugo-overlay h2 { color: #b97a56; text-shadow: 0 2px 8px #fff7; }
 

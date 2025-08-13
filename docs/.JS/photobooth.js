@@ -6,7 +6,7 @@ const downloadBtn = document.getElementById('download-btn');
 
 let baseImage = null;
 const stickersOnCanvas = [];
-const stickerFiles = ['impronta stupenda.jpg', 'Ugo.jpeg']; // Esempi di stickers
+let stickerFiles = ['../IMMAGINI DI UGOO/impronta stupenda.jpg', '../IMMAGINI DI UGOO/Ugo.jpeg']; // Esempi di stickers
 
 // Carica stickers
 stickerFiles.forEach(stickerFile => {

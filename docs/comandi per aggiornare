@@ -1,3 +1,5 @@
+git rebase origin/main
+git rebase --continue
 git pull origin main
 git add .
 git commit -m "aggiorna i cambiamenti"

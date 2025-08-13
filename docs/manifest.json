@@ -1,6 +1,6 @@
 {
-  "name": "Il Meraviglioso Mondo di Ugo",
-  "short_name": "Mondo Ugo",
+  "name": "La Cuccia Di Ugo",
+  "short_name": "Cuccia Ugo",
   "description": "Scopri le avventure di Ugo attraverso storie interattive, quiz e molto altro!",
   "start_url": "/",
   "display": "standalone",
@@ -9,13 +9,13 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "icons/icon-72x72.png",
-      "sizes": "72x72",
-      "type": "image/png"
+      "src": "/favicon-ugo.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
     },
     {
-      "src": "icons/icon-96x96.png",
-      "sizes": "96x96",
+      "src": "/favicon-ugo.png",
+      "sizes": "16x16",
       "type": "image/png"
     },
     {
@@ -46,6 +46,16 @@
     {
       "src": "icons/icon-512x512.png",
       "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-1024x1536.png",
+      "sizes": "1024x1536",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-ugo.png",
+      "sizes": "32x32",
       "type": "image/png"
     }
   ],

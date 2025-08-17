@@ -19,6 +19,48 @@ if (process.env.SENTRY_DSN) {
   }
 }
 
+
+// Supabase startup checks to ensure 'uploads' bucket exists
+const supabase = require('./config/supabase');
+(async () => {
+  try {
+    console.log('[supabase] Verifying storage buckets...');
+    console.log('[supabase] About to call listBuckets()');
+    const { data: buckets, error: listError } = await supabase.storage.listBuckets();
+    console.log('[supabase] listBuckets() returned.');
+
+    if (listError) {
+      console.error('[supabase] FATAL: Could not list storage buckets. Is the service key correct and the service running?', listError.message);
+      process.exit(1);
+    }
+    
+    console.log('[supabase] Buckets listed successfully.');
+
+    const BUCKET_NAME = 'uploads';
+    const bucketExists = buckets.some(bucket => bucket.name === BUCKET_NAME);
+
+    if (bucketExists) {
+      console.log(`[supabase] Storage bucket "${BUCKET_NAME}" is ready.`);
+    } else {
+      console.log(`[supabase] Storage bucket "${BUCKET_NAME}" not found. Attempting to create it...`);
+      const { error: createError } = await supabase.storage.createBucket(BUCKET_NAME, {
+        public: true, // As per init.sql, this should be public
+      });
+
+      if (createError) {
+        console.error(`[supabase] FATAL: Failed to create bucket "${BUCKET_NAME}":`, createError.message);
+        process.exit(1);
+      }
+      console.log(`[supabase] Bucket "${BUCKET_NAME}" created successfully. The application can now handle uploads.`);
+    }
+    console.log('[supabase] Bucket verification complete.');
+  } catch (err) {
+    console.error('[supabase] FATAL: A critical error occurred during Supabase initialization:', err);
+    process.exit(1);
+  }
+})();
+
+
 // Prometheus metrics
 const client = require('prom-client');
 client.collectDefaultMetrics();
@@ -41,6 +83,7 @@ const notificationRoutes = require('./routes/notificationRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const ugoAIRoutes = require('./routes/ugoAI');
+const ugoChat = require('./routes/ugoChat');
 const aiRoutes = require('./routes/aiRoutes');
 const publicIntegrationRoutes = require('./routes/publicIntegrationRoutes');
 
@@ -178,6 +221,7 @@ app.use('/api/notifications', notificationRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/ugo-ai', ugoAIRoutes);
+app.use('/api/ugo', ugoChat);
 app.use('/api/ai', aiRoutes);
 app.use('/api/public', publicIntegrationRoutes);
 

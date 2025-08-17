@@ -1,8 +1,13 @@
 # Multi-stage Docker build for Ugo AI Backend
-# Optimized for CPU-deployment with minimal footprint
+# Optimized for CPU-# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+  CMD curl -f http://localhost:3000/api/health || exit 1
+
+# Start command
+CMD ["node", "src/server.js"]eployment with minimal footprint
 
 # Stage 1: Build stage
-FROM node:20-slim AS builder
+FROM node:18-slim AS builder
 WORKDIR /app
 
 # Install system dependencies for building native modules
@@ -23,17 +28,13 @@ COPY prisma ./prisma
 COPY src ./src
 COPY migrations ./migrations
 COPY tests ./tests
-# Copy env files
 COPY .env* ./
-
-# Create .env symlink from .env.production
-RUN if [ -f .env.production ]; then ln -sf .env.production .env; fi
 
 # Generate Prisma client
 RUN npx prisma generate
 
 # Stage 2: Production runtime
-FROM node:20-slim AS production
+FROM node:18-slim AS production
 WORKDIR /app
 
 # Set environment
@@ -57,12 +58,8 @@ COPY --from=builder /app/package*.json ./
 # Copy additional runtime files
 COPY migrations ./migrations
 COPY uploads ./uploads
-COPY .env* ./
 COPY wait-for-it.sh ./
 RUN chmod +x wait-for-it.sh
-
-# Create .env symlink from .env.production  
-RUN if [ -f .env.production ]; then ln -sf .env.production .env; fi
 
 # Create non-root user for security
 RUN groupadd -r ugo && useradd -r -g ugo ugo

@@ -9,7 +9,7 @@
   <!-- PRIORITY 1.0 - Homepage (Landing page principale) -->
   <url>
     <loc>https://lacucciadiugo.it/</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -17,7 +17,7 @@
   <!-- PRIORITY 0.9 - Sezioni Storie e Contenuti Principali -->
   <url>
     <loc>https://lacucciadiugo.it/ugo-stories.html</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -25,21 +25,21 @@
   <!-- PRIORITY 0.8 - Funzionalità Interattive e Community -->
   <url>
     <loc>https://lacucciadiugo.it/quiz.html</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://lacucciadiugo.it/photobooth.html</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
     <loc>https://lacucciadiugo.it/ugo-ai.html</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -47,14 +47,14 @@
   <!-- PRIORITY 0.7 - Utility e Servizi -->
   <url>
     <loc>https://lacucciadiugo.it/faq.html</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
     <loc>https://lacucciadiugo.it/rss.xml</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -62,14 +62,14 @@
   <!-- PRIORITY 0.6 - Dashboard e Analytics (Contenuti Evergreen) -->
   <url>
     <loc>https://lacucciadiugo.it/dashboard.html</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 
   <url>
     <loc>https://lacucciadiugo.it/analytics.html</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -78,35 +78,35 @@
   <!-- Storie individuali per long-tail SEO -->
   <url>
     <loc>https://lacucciadiugo.it/ugo-stories.html#passeggiata-bosco-autunnale</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://lacucciadiugo.it/ugo-stories.html#filosofia-canina-presente</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://lacucciadiugo.it/ugo-stories.html#avventure-quotidiane-ugo</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://lacucciadiugo.it/ugo-stories.html#curiosita-cane-esploratore</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://lacucciadiugo.it/ugo-stories.html#amicizia-uomo-cane</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -114,14 +114,14 @@
   <!-- Quiz specifici per engagement -->
   <url>
     <loc>https://lacucciadiugo.it/quiz.html#test-personalita-cane</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
 
   <url>
     <loc>https://lacucciadiugo.it/quiz.html#quanto-conosci-ugo</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -130,14 +130,14 @@
   <!-- Sezioni fotogallery per visual SEO -->
   <url>
     <loc>https://lacucciadiugo.it/photobooth.html#galleria-foto-ugo</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.4</priority>
   </url>
 
   <url>
     <loc>https://lacucciadiugo.it/photobooth.html#foto-community-cani</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.4</priority>
   </url>
@@ -145,14 +145,14 @@
   <!-- Contenuti stagionali -->
   <url>
     <loc>https://lacucciadiugo.it/ugo-stories.html#passeggiate-bosco-primavera</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
 
   <url>
     <loc>https://lacucciadiugo.it/ugo-stories.html#avventure-estate-2025</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
   </url>
@@ -160,14 +160,14 @@
   <!-- Consigli evergreen per long-tail -->
   <url>
     <loc>https://lacucciadiugo.it/ugo-ai.html#consigli-vita-cane-felice</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
 
   <url>
     <loc>https://lacucciadiugo.it/ugo-ai.html#lezioni-cane-filosofo</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
@@ -175,14 +175,14 @@
   <!-- Community features -->
   <url>
     <loc>https://lacucciadiugo.it/faq.html#community-amanti-cani</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
 
   <url>
     <loc>https://lacucciadiugo.it/faq.html#partecipa-storie-ugo</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
@@ -190,14 +190,14 @@
   <!-- Geo-targeting (assumendo location italiana) -->
   <url>
     <loc>https://lacucciadiugo.it/ugo-stories.html#storie-cani-italia</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
 
   <url>
     <loc>https://lacucciadiugo.it/ugo-stories.html#passeggiate-cani-natura</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
@@ -205,14 +205,14 @@
   <!-- User-generated content placeholders -->
   <url>
     <loc>https://lacucciadiugo.it/photobooth.html#foto-utenti-community</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.4</priority>
   </url>
 
   <url>
     <loc>https://lacucciadiugo.it/ugo-stories.html#testimonianze-proprietari</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.4</priority>
   </url>
@@ -220,7 +220,7 @@
   <!-- Newsletter e engagement -->
   <url>
     <loc>https://lacucciadiugo.it/index.html#newsletter-storie-ugo</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.4</priority>
   </url>
@@ -228,14 +228,14 @@
   <!-- Archivi temporali per crawling depth -->
   <url>
     <loc>https://lacucciadiugo.it/ugo-stories.html#storie-agosto-2025</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
 
   <url>
     <loc>https://lacucciadiugo.it/ugo-stories.html#storie-luglio-2025</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
@@ -243,7 +243,7 @@
   <!-- PRIORITY 0.3 - Pagine Legali e Documenti -->
   <url>
     <loc>https://lacucciadiugo.it/privacy-policy.html</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
@@ -251,14 +251,14 @@
   <!-- Documenti di supporto -->
   <url>
     <loc>https://lacucciadiugo.it/faq.html#termini-uso</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <url>
     <loc>https://lacucciadiugo.it/faq.html#cookie-policy</loc>
-    <lastmod>2025-08-17T04:00:16+00:00</lastmod>
+    <lastmod>2025-08-13T08:32:55+00:00</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

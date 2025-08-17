@@ -90,16 +90,11 @@ Output: "Oh no... *si avvicina dolcemente* Sono qui con te. *appoggia la testa s
       }
 
       // 5. Messaggio utente corrente
-      prompt += `\n\nNUOVO MESSAGGIO:\nUmano: ${userMessage}\nUgo:`
+      prompt += `\n\nNUOVO MESSAGGIO:\nUmano: ${userMessage}\nUgo:`;
 
-      // 6. Ottimizzazione lunghezza
-      const MAX_PROMPT_LENGTH = 1500;
-      if (prompt.length > MAX_PROMPT_LENGTH) {
-        prompt = prompt.slice(-MAX_PROMPT_LENGTH);
-        const ugoIndex = prompt.indexOf('Ugo:');
-        if (ugoIndex > 50) { // Evita di tagliare troppo vicino all'inizio
-            prompt = prompt.substring(ugoIndex - 20);
-        }
+      // 6. Ottimizzazione lunghezza (max 1500 caratteri per efficienza)
+      if (prompt.length > 1500) {
+        prompt = prompt.slice(-1500);
       }
 
       return prompt.trim();
@@ -116,7 +111,7 @@ Output: "Oh no... *si avvicina dolcemente* Sono qui con te. *appoggia la testa s
   getFallbackPrompt(userMessage) {
     return `Sei Ugo, un cane affettuoso. Rispondi in modo breve e naturale.
 Umano: ${userMessage}
-Ugo:`
+Ugo:`;
   }
 
   /**
@@ -135,7 +130,7 @@ La storia deve essere:
 
 Mood attuale: ${mood}
 
-Inizia la storia:`
+Inizia la storia:`;
 
     return storyPrompt;
   }
@@ -159,7 +154,7 @@ Rispondi: ${responseStyle}
 Il tuo mood: ${targetMood}
 
 Umano: ${userMessage}
-Ugo:`
+Ugo:`;
   }
 
   /**
@@ -181,7 +176,7 @@ Istruzioni:
       prompt += `\nMood: ${context.mood}`;
     }
 
-    prompt += `\n\nRisposta di Ugo:`
+    prompt += `\n\nRisposta di Ugo:`;
     return prompt;
   }
 

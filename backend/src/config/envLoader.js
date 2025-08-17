@@ -3,13 +3,17 @@ const path = require('path');
 const fs = require('fs');
 const dotenv = require('dotenv');
 
-// Resolve .env explicitly relative to backend root
-const ENV_PATH = path.join(__dirname, '..', '..', '.env');
-if (fs.existsSync(ENV_PATH)) {
-  dotenv.config({ path: ENV_PATH });
+// Resolve .env file based on NODE_ENV
+const envFileName = process.env.NODE_ENV === 'production' ? '.env.production' : '.env';
+const envPath = path.resolve(__dirname, '..', '..', envFileName);
+
+if (fs.existsSync(envPath)) {
+  console.log(`[envLoader] Loading environment variables from ${envPath}`);
+  dotenv.config({ path: envPath });
 } else {
-  console.warn('[envLoader] .env file not found at', ENV_PATH);
+  console.warn(`[envLoader] Environment file not found at ${envPath}`);
 }
+
 
 const REQUIRED = [
   'SUPABASE_URL',

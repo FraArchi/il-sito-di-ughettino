@@ -1,0 +1,77 @@
+# Multi-stage build for llama.cpp model service
+FROM ubuntu:22.04 AS builder
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
+    git \
+    wget \
+    curl \
+    libcurl4-openssl-dev \
+    libopenblas-dev \
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Download and extract llama.cpp (more reliable than git clone)
+WORKDIR /build
+RUN wget -q https://github.com/ggerganov/llama.cpp/archive/refs/heads/master.zip -O llama.cpp.zip && \
+    unzip -q llama.cpp.zip && \
+    mv llama.cpp-master llama.cpp && \
+    rm llama.cpp.zip && \
+    cd llama.cpp && \
+    cmake -B build -DLLAMA_BLAS=ON -DLLAMA_BLAS_VENDOR=OpenBLAS -DLLAMA_CURL=OFF && \
+    cmake --build build --config Release -j$(nproc) && \
+    mkdir -p /app && \
+    cp build/bin/llama-server /app/llama-server && \
+    cp build/bin/llama-quantize /app/llama-quantize
+
+# Runtime stage
+FROM ubuntu:22.04 AS runtime
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y \
+    libopenblas0 \
+    libgomp1 \
+    curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Create app directory
+WORKDIR /app
+
+# Copy llama.cpp binaries
+COPY --from=builder /app/llama-server /app/llama-server
+COPY --from=builder /app/llama-quantize /app/llama-quantize
+
+# Copy shared libraries from builder stage
+COPY --from=builder /build/llama.cpp/build/bin/lib*.so* /usr/local/lib/
+
+# Create models directory
+RUN mkdir -p /app/models /app/cache
+
+# Update library cache
+RUN ldconfig
+
+# Create non-root user
+RUN useradd -r -u 1001 -g root modeluser && \
+    chown -R modeluser:root /app && \
+    chmod -R g=u /app
+
+USER modeluser
+
+# Expose port
+EXPOSE 8080
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+  CMD curl -f http://localhost:8080/health || exit 1
+
+# Default command - updated for newer llama.cpp
+CMD ["./llama-server", \
+     "--model", "/app/models/mistral-7b-instruct-v0.1.Q4_K_M.gguf", \
+     "--port", "8080", \
+     "--host", "0.0.0.0", \
+     "--threads", "8", \
+     "--ctx-size", "4096", \
+     "--n-gpu-layers", "0"]

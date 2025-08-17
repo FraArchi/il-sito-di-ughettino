@@ -48,6 +48,12 @@ Thumbs.db
 # Caches
 .cache/
 .parcel-cache/
+
+# AI Models (too large for Git)
+backend/models/*.gguf
+backend/models/*.bin
+backend/models/*.safetensors
+backend/models/*.tmp
 .eslintcache
 .stylelintcache
 

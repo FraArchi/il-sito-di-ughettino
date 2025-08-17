@@ -75,3 +75,17 @@ backend/prisma/*.db
 # pnpm-lock.yaml
 # yarn.lock
 # package-lock.json
+
+# Temporary / merge artifacts created during local work
+# Ignore specific untracked files observed after merge
+Pagina
+Se
+
+# Ignore helper/temp files created in docs during merge
+docs/.CSS/style1.css
+docs/.HTML/1*.html
+docs/.JS/1*.js
+
+# Ignore local directories accidentally created
+os/
+react/

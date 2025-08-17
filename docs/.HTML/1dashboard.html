@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard di Ugo - I tuoi Progressi</title>
+    <meta name="description" content="Traccia i tuoi progressi, achievement e interazioni nel mondo di Ugo.">
+    <link rel="stylesheet" href="../.CSS/style.css">
+    <link rel="stylesheet" href="../.CSS/dashboard-style.css">
+    <link rel="stylesheet" href="../.CSS/tw.css">
+    <meta name="theme-color" content="#b97a56">
+    <link rel="manifest" href="manifest.json">
+    <!-- Google tag (gtag.js) con Consent Mode -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-M7R4KXNLWL"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){ dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('consent', 'default', { 'ad_storage': 'denied', 'analytics_storage': 'denied' });
+      gtag('config', 'G-M7R4KXNLWL', { 'anonymize_ip': true, 'allow_ad_personalization_signals': false });
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = { theme: { extend: { colors: { ugo: { primary: '#b97a56', secondary: '#2d1c0f', accent: '#f97316', bg: '#f8f6f0' } }, fontFamily: { display: ['Playfair Display','serif'], sans: ['Inter','ui-sans-serif','system-ui'] }, borderRadius: { xl: '12px' }, boxShadow: { soft: '0 2px 12px rgba(0,0,0,0.1)' } } } };
+    </script>
+</head>
+<body>
+    <a class="skip-link" href="#main">Salta al contenuto</a>
+    <header class="header-sticky" role="banner">
+        <div class="header-content">
+            <a href="index.html" class="logo" aria-label="Home">🐾 Ugo</a>
+            <div class="menu-toggle" id="menu-toggle" aria-label="Apri menu" aria-expanded="false" aria-controls="nav-menu">
+                <span></span><span></span><span></span>
+            </div>
+            <nav aria-label="Navigazione principale">
+                <ul id="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href=".HTML/dashboard.html" class="active">Dashboard</a></li>
+                    <li><a href=".HTML/ugo-stories.html">Storie</a></li>
+                    <li><a href=".HTML/quiz.html">Quiz</a></li>
+                    <li><a href=".HTML/photobooth.html">Photo Booth</a></li>
+                    <li><a href=".HTML/ugo-ai.html">Ugo AI</a></li>
+                    <li><a href=".HTML/faq.html">FAQ</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main">
+        <div class="dashboard-container">
+            <div class="welcome-section">
+                <h1 class="font-display">Benvenuto nella tua Dashboard! 🐕</h1>
+                <div class="user-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">📅</div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="days-since-first-visit">0</div>
+                            <div class="stat-label">Giorni con Ugo</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🏆</div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="total-achievements">0</div>
+                            <div class="stat-label">Achievement</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="ugo-points">0</div>
+                            <div class="stat-label">Ugo Points</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📖</div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="stories-completed">0</div>
+                            <div class="stat-label">Storie Completate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="achievements-section">
+                <h2>I Tuoi Achievement 🏅</h2>
+                <div class="achievements-grid" id="achievements-grid">
+                    <!-- Achievement verranno inseriti qui da JS -->
+                </div>
+            </div>
+
+            <div class="activity-section">
+                <h2>Attività Recente 📊</h2>
+                <div class="activity-chart">
+                    <canvas id="activity-chart" width="400" height="200"></canvas>
+                </div>
+            </div>
+
+            <div class="daily-challenge">
+                <h2>Sfida Quotidiana 🎯</h2>
+                <div class="challenge-card" id="daily-challenge">
+                    <!-- Sfida quotidiana verrà inserita qui -->
+                </div>
+            </div>
+
+            <div class="ugo-mood">
+                <h2>L'Umore di Ugo Oggi 😊</h2>
+                <div class="mood-display">
+                    <div class="ugo-avatar" id="ugo-avatar">
+                        <img src="../Immagini/Ugo.jpeg" alt="Ugo" class="avatar-img">
+                        <div class="mood-indicator" id="mood-indicator">😊</div>
+                    </div>
+                    <div class="mood-message" id="mood-message">
+                        Ugo è felice di vederti oggi!
+                    </div>
+                </div>
+                <div class="mood-actions">
+                    <button class="mood-btn" onclick="interactWithUgo('pet')">🤚 Accarezza</button>
+                    <button class="mood-btn" onclick="interactWithUgo('treat')">🦴 Premietto</button>
+                    <button class="mood-btn" onclick="interactWithUgo('play')">🎾 Gioca</button>
+                </div>
+            </div>
+
+            <div class="personalization-section">
+                <h2>Personalizza la tua Esperienza 🎨</h2>
+                <div class="theme-selector">
+                    <h3>Tema del Sito</h3>
+                    <div class="theme-options">
+                        <button class="theme-btn active" data-theme="default">🌅 Classico</button>
+                        <button class="theme-btn" data-theme="dark">🌙 Scuro</button>
+                        <button class="theme-btn" data-theme="playful">🎈 Giocoso</button>
+                        <button class="theme-btn" data-theme="autumn">🍂 Autunnale</button>
+                    </div>
+                </div>
+                
+                <div class="notification-settings">
+                    <h3>Notifiche</h3>
+                    <label class="switch">
+                        <input type="checkbox" id="daily-story-notification">
+                        <span class="slider"></span>
+                        Nuove storie quotidiane
+                    </label>
+                    <label class="switch">
+                        <input type="checkbox" id="achievement-notification">
+                        <span class="slider"></span>
+                        Nuovi achievement
+                    </label>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-links">
+          <a href=".HTML/chi-siamo.html">Chi Siamo</a>
+          <a href=".HTML/contatti.html">Contatti</a>
+          <a href=".HTML/privacy.html">Privacy Policy</a>
+        </div>
+        <p>&copy; 2025 Il Meraviglioso Mondo di Ugo. Creato con ❤️ da Francesco Archidiacono.</p>
+        <p>Seguimi su Instagram: <a href="https://instagram.com/fra.archi" target="_blank" rel="noopener noreferrer">@fra.archi</a></p>
+      </div>
+    </footer>
+
+    <!-- Menu hamburger script -->
+    <script>
+      document.getElementById('menu-toggle')?.addEventListener('click', function() {
+        const navMenu = document.getElementById('nav-menu');
+        const menuToggle = document.getElementById('menu-toggle');
+        navMenu.classList.toggle('active');
+        menuToggle.classList.toggle('active');
+        const expanded = menuToggle.classList.contains('active');
+        menuToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      });
+      document.querySelectorAll('nav a').forEach(link => {
+        link.addEventListener('click', () => {
+          document.getElementById('nav-menu')?.classList.remove('active');
+          document.getElementById('menu-toggle')?.classList.remove('active');
+          document.getElementById('menu-toggle')?.setAttribute('aria-expanded', 'false');
+        });
+      });
+    </script>
+    <script src=".JS/dashboard.js" defer></script>
+    <script src=".JS/menu.js"></script>
+    <script src=".JS/sw-register.js"></script>
+</body>
+</html>

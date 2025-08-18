@@ -1,0 +1,74 @@
+# Multi-stage Docker build for Ugo AI Backend
+# Optimized for CPU-only deployment with minimal footprint
+
+# Stage 1: Build stage
+FROM node:18-slim AS builder
+WORKDIR /app
+
+# Install system dependencies for building native modules
+RUN apt-get update && apt-get install -y \
+  python3 \
+  make \
+  g++ \
+  && rm -rf /var/lib/apt/lists/*
+
+# Copy package files
+COPY package*.json ./
+
+# Install all dependencies (including dev dependencies for build)
+RUN npm ci --no-audit --no-fund
+
+# Copy source code and configuration
+COPY prisma ./prisma
+COPY src ./src
+COPY migrations ./migrations
+COPY tests ./tests
+COPY .env* ./
+
+# Generate Prisma client
+RUN npx prisma generate
+
+# Stage 2: Production runtime
+FROM node:18-slim AS production
+WORKDIR /app
+
+# Set environment
+ENV NODE_ENV=production
+ENV PORT=3000
+
+# Install runtime dependencies and utilities
+RUN apt-get update && apt-get install -y \
+  bash \
+  curl \
+  ca-certificates \
+  netcat-openbsd \
+  && rm -rf /var/lib/apt/lists/* \
+  && apt-get clean
+
+# Copy production files from builder
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/src ./src
+COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/package*.json ./
+
+# Copy additional runtime files
+COPY migrations ./migrations
+COPY uploads ./uploads
+COPY wait-for-it.sh ./
+RUN chmod +x wait-for-it.sh
+
+# Create directories and ensure proper permissions
+RUN mkdir -p /app/logs /app/uploads
+RUN groupadd -r ugo && useradd -r -g ugo ugo
+RUN chown -R ugo:ugo /app
+USER ugo
+
+# Expose port
+EXPOSE 3000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
+  CMD curl -f http://localhost:3000/api/health || exit 1
+
+# Start command
+CMD ["node", "src/server.js"]

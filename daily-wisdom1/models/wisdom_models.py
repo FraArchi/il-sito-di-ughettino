@@ -147,6 +147,7 @@ class GenerationLog(Base):
     
     # Generazione info
     engine_type = Column(String(50), nullable=False)
+    strategy_used = Column(String(50))  # Added strategy field
     model_name = Column(String(100))
     prompt_used = Column(Text)
     generation_time = Column(Float)  # Secondi
@@ -162,6 +163,7 @@ class GenerationLog(Base):
     
     # Quality metrics
     quality_checks = Column(JSON, default=dict)
+    quality_score = Column(Float, default=0.0)  # Added quality score field
     passed_quality = Column(Boolean, default=True)
     quality_issues = Column(JSON, default=list)
     

@@ -25,8 +25,8 @@ class DailyWisdomScheduler:
         self.scheduler_thread = None
         
         # Configurazione timing
-        self.daily_time = settings.SCHEDULER_CONFIG.get('daily_generation_time', '08:00')
-        self.enabled = settings.SCHEDULER_CONFIG.get('enabled', True)
+        self.daily_time = settings.SCHEDULE_CONFIG.get('daily_generation_time', '08:00')
+        self.enabled = settings.SCHEDULE_CONFIG.get('enabled', True)
         
     def start(self):
         """Avvia lo scheduler"""

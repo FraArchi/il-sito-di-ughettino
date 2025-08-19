@@ -8,7 +8,7 @@ schedule>=1.2.0            # Scheduler semplice per task automatici
 
 # Database & ORM
 sqlalchemy==2.0.23        # ORM per gestione database
-sqlite3                   # Database locale (built-in Python)
+# sqlite3                 # Database locale (built-in Python) - already included
 alembic==1.12.1          # Migrations database
 
 # HTTP & Web Scraping
@@ -19,15 +19,15 @@ feedparser==6.0.10        # Parsing RSS feeds
 lxml==4.9.3              # XML/HTML parser veloce
 
 # Image Processing & Graphics
-pillow==10.1.0            # Image processing (ex-PIL)
-imageio==2.31.5          # I/O per immagini
-numpy==1.25.2            # Array numerici per immagini
+pillow>=10.4.0            # Image processing (ex-PIL) - updated for Python 3.13
+imageio>=2.35.0          # I/O per immagini
+numpy>=1.26.0            # Array numerici per immagini
 
 # AI & Machine Learning (Local)
-transformers==4.35.0      # Hugging Face models
-torch==2.1.0             # PyTorch per AI locale
-sentence-transformers==2.2.2  # Sentence embeddings
-textblob==0.17.1          # Analisi testo e sentiment
+transformers>=4.40.0      # Hugging Face models
+torch>=2.3.0             # PyTorch per AI locale
+sentence-transformers>=3.0.0  # Sentence embeddings
+textblob>=0.18.0          # Analisi testo e sentiment
 
 # Scheduling & Automation
 apscheduler==3.10.4       # Task scheduling avanzato

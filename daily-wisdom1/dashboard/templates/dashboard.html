@@ -1,0 +1,141 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="metric-grid">
+    <div class="metric-card">
+        <div class="metric-value" data-metric="views">{{ real_time_metrics.get('views', 0) }}</div>
+        <div class="metric-label">Visualizzazioni Oggi</div>
+    </div>
+    <div class="metric-card">
+        <div class="metric-value">{{ db_stats.get('total_wisdom', 0) }}</div>
+        <div class="metric-label">Saggezze Totali</div>
+    </div>
+    <div class="metric-card">
+        <div class="metric-value" data-metric="engagement">{{ (real_time_metrics.get('engagement_rate', 0) * 100)|round(1) }}%</div>
+        <div class="metric-label">Engagement Rate</div>
+    </div>
+    <div class="metric-card">
+        <div class="metric-value">{{ weekly_report.total_views if weekly_report else 0 }}</div>
+        <div class="metric-label">Visualizzazioni Settimana</div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>🎯 Azioni Rapide</h2>
+    <button class="btn btn-success" onclick="generateWisdom()">🎲 Genera Nuova Saggezza</button>
+    <button class="btn" onclick="location.href='/analytics'">📊 Visualizza Analytics</button>
+    <button class="btn" onclick="location.href='/social'">📱 Gestisci Social</button>
+    <button class="btn btn-warning" onclick="runAutomation()">🤖 Esegui Pipeline Automatica</button>
+</div>
+
+{% if real_time_metrics.get('today_published') %}
+<div class="card">
+    <h2>✅ Saggezza di Oggi</h2>
+    <div class="alert alert-success">
+        <strong>Pubblicata:</strong> "{{ real_time_metrics.get('text', 'N/A') }}"<br>
+        <strong>Categoria:</strong> {{ real_time_metrics.get('category', 'N/A') }} | 
+        <strong>Mood:</strong> {{ real_time_metrics.get('mood', 'N/A') }}<br>
+        <strong>Performance:</strong> {{ real_time_metrics.get('views', 0) }} views, {{ real_time_metrics.get('likes', 0) }} likes
+        <br><br>
+        <button class="btn" onclick="publishToSocial({{ real_time_metrics.get('wisdom_id') }})">📱 Pubblica sui Social</button>
+    </div>
+</div>
+{% else %}
+<div class="card">
+    <h2>⚠️ Saggezza di Oggi</h2>
+    <div class="alert alert-warning">
+        <strong>Non ancora pubblicata</strong> - Clicca su "Genera Nuova Saggezza" per creare la saggezza di oggi!
+    </div>
+</div>
+{% endif %}
+
+<div class="card">
+    <h2>📈 Riepilogo Settimanale</h2>
+    {% if weekly_report %}
+    <div class="metric-grid">
+        <div style="text-align: center;">
+            <div style="font-size: 2rem; font-weight: bold; color: #3498db;">{{ weekly_report.total_wisdom }}</div>
+            <div style="color: #7f8c8d;">Saggezze Generate</div>
+        </div>
+        <div style="text-align: center;">
+            <div style="font-size: 2rem; font-weight: bold; color: #27ae60;">{{ (weekly_report.total_engagement * 100)|round(1) }}%</div>
+            <div style="color: #7f8c8d;">Engagement Medio</div>
+        </div>
+    </div>
+    
+    {% if weekly_report.recommendations %}
+    <h3>💡 Raccomandazioni della Settimana:</h3>
+    <ul>
+        {% for rec in weekly_report.recommendations[:3] %}
+        <li>{{ rec }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% else %}
+    <p>Dati settimanali non disponibili. Inizia a generare saggezze per vedere i progressi!</p>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h2>📋 Ultime Saggezze Generate</h2>
+    {% if recent_wisdom %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Testo</th>
+                <th>Categoria</th>
+                <th>Visualizzazioni</th>
+                <th>Engagement</th>
+                <th>Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for wisdom in recent_wisdom[:10] %}
+            <tr>
+                <td>{{ wisdom.get('created_at', 'N/A') }}</td>
+                <td>{{ wisdom.get('text', '')[:80] }}{% if wisdom.get('text', '')|length > 80 %}...{% endif %}</td>
+                <td><span style="background: #e8f4fd; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem;">{{ wisdom.get('category', 'N/A') }}</span></td>
+                <td>{{ wisdom.get('views', 0) }}</td>
+                <td>{{ (wisdom.get('engagement_rate', 0) * 100)|round(1) }}%</td>
+                <td>
+                    <button class="btn" onclick="publishToSocial({{ wisdom.get('id') }})" style="font-size: 0.8rem; padding: 0.5rem;">📱 Pubblica</button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-warning">
+        <strong>Nessuna saggezza trovata.</strong> Inizia generando la prima saggezza di Ugo!
+    </div>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h2>🔧 Stato del Sistema</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <div style="text-align: center; padding: 1rem; background: #e8f5e8; border-radius: 4px;">
+            <div style="font-size: 1.5rem;">✅</div>
+            <div>Database</div>
+            <div style="font-size: 0.8rem; color: #27ae60;">{{ db_stats.get('database_size', 'N/A') }}</div>
+        </div>
+        <div style="text-align: center; padding: 1rem; background: #e8f5e8; border-radius: 4px;">
+            <div style="font-size: 1.5rem;">🤖</div>
+            <div>AI Engine</div>
+            <div style="font-size: 0.8rem; color: #27ae60;">Operativo</div>
+        </div>
+        <div style="text-align: center; padding: 1rem; background: #e8f5e8; border-radius: 4px;">
+            <div style="font-size: 1.5rem;">📱</div>
+            <div>Social Media</div>
+            <div style="font-size: 0.8rem; color: #27ae60;">Pronto</div>
+        </div>
+        <div style="text-align: center; padding: 1rem; background: #e8f5e8; border-radius: 4px;">
+            <div style="font-size: 1.5rem;">📊</div>
+            <div>Analytics</div>
+            <div style="font-size: 0.8rem; color: #27ae60;">Attivo</div>
+        </div>
+    </div>
+</div>
+{% endblock %}

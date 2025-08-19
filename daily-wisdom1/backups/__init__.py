@@ -1,0 +1,1 @@
+"""Daily Wisdom System module"""

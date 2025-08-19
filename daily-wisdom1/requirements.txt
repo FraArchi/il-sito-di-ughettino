@@ -1,0 +1,69 @@
+# 🐕 La Cuccia di Ugo - Daily Wisdom System
+# Dependencies 100% open source e gratuite
+
+# Core Web Framework
+fastapi>=0.104.0           # Framework API moderno e veloce
+uvicorn[standard]>=0.24.0  # Server ASGI per FastAPI
+schedule>=1.2.0            # Scheduler semplice per task automatici
+
+# Database & ORM
+sqlalchemy==2.0.23        # ORM per gestione database
+sqlite3                   # Database locale (built-in Python)
+alembic==1.12.1          # Migrations database
+
+# HTTP & Web Scraping
+requests==2.31.0          # HTTP client semplice
+aiohttp==3.9.0           # HTTP client asincrono
+beautifulsoup4==4.12.2    # HTML parsing per scraping
+feedparser==6.0.10        # Parsing RSS feeds
+lxml==4.9.3              # XML/HTML parser veloce
+
+# Image Processing & Graphics
+pillow==10.1.0            # Image processing (ex-PIL)
+imageio==2.31.5          # I/O per immagini
+numpy==1.25.2            # Array numerici per immagini
+
+# AI & Machine Learning (Local)
+transformers==4.35.0      # Hugging Face models
+torch==2.1.0             # PyTorch per AI locale
+sentence-transformers==2.2.2  # Sentence embeddings
+textblob==0.17.1          # Analisi testo e sentiment
+
+# Scheduling & Automation
+apscheduler==3.10.4       # Task scheduling avanzato
+crontab==0.23.0          # Gestione cron jobs
+
+# Utilities & Helpers
+python-dotenv==1.0.0     # Gestione file .env
+pydantic==2.5.0          # Validazione dati
+python-dateutil==2.8.2   # Parsing date avanzato
+pytz==2023.3             # Timezone handling
+colorama==0.4.6          # Colori terminal
+tqdm==4.66.1             # Progress bars
+
+# Logging & Monitoring
+loguru==0.7.2            # Logging avanzato e colorato
+psutil==5.9.6            # System monitoring
+python-json-logger==2.0.7 # JSON logging
+
+# Development & Testing
+pytest==7.4.3           # Testing framework
+pytest-asyncio==0.21.1   # Testing async
+black==23.10.1           # Code formatting
+flake8==6.1.0            # Code linting
+
+# Optional AI (se disponibile)
+# ollama==0.1.7          # Local LLM (opzionale)
+# torch-audio==2.1.0     # Audio processing (opzionale)
+
+# Social Media & APIs (gratuite)
+python-telegram-bot==20.6 # Telegram bot (opzionale)
+tweepy==4.14.0           # Twitter API (opzionale)
+
+# Backup & Export
+zipfile36==0.1.3         # Backup archives
+openpyxl==3.1.2          # Excel export
+markdown==3.5.1          # Markdown processing
+
+# Font & Typography
+fonttools==4.44.0        # Font manipulation

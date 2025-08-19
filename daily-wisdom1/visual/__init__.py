@@ -1,0 +1,2 @@
+
+"""Daily Wisdom Visual Module"""

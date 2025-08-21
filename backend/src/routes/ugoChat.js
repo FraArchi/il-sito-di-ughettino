@@ -151,10 +151,6 @@ router.post('/chat',
         generatedText = await generateUgoResponse(promptData);
       } catch (modelError) {
         logger.error('Model service error:', modelError);
-        // If the model service is unavailable, we should throw to trigger the 500 error handler
-        if (modelError.message.includes('Model service not available')) {
-          throw modelError;
-        }
         // Fallback a risposta predefinita
         generatedText = generateFallbackResponse(emotionResult.mood, message);
       }

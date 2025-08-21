@@ -1,10 +1,14 @@
 const express = require('express');
+const cors = require('cors');
+const helmet = require('helmet');
+const compression = require('compression');
+const morgan = require('morgan');
+const rateLimit = require('express-rate-limit');
+const slowDown = require('express-slow-down');
 require('express-async-errors');
-const client = require('prom-client');
-const { verifySupabaseBucket } = require('./config/supabase-startup');
-const logger =require('./utils/logger');
+require('dotenv').config();
 
-// Initialize Sentry
+// Sentry (lazy-load only if DSN provided and module available)
 let Sentry = null;
 if (process.env.SENTRY_DSN) {
   try {
@@ -15,11 +19,57 @@ if (process.env.SENTRY_DSN) {
   }
 }
 
-// Perform async startup tasks
-verifySupabaseBucket();
+
+// Supabase startup checks to ensure 'uploads' bucket exists
+const supabase = require('./config/supabase');
+(async () => {
+  try {
+    console.log('[supabase] Verifying storage buckets...');
+    console.log('[supabase] About to call listBuckets()');
+    const { data: buckets, error: listError } = await supabase.storage.listBuckets();
+    console.log('[supabase] listBuckets() returned.');
+
+    if (listError) {
+      console.error('[supabase] FATAL: Could not list storage buckets. Is the service key correct and the service running?', listError.message);
+      process.exit(1);
+    }
+    
+    console.log('[supabase] Buckets listed successfully.');
+
+    const BUCKET_NAME = 'uploads';
+    const bucketExists = buckets.some(bucket => bucket.name === BUCKET_NAME);
+
+    if (bucketExists) {
+      console.log(`[supabase] Storage bucket "${BUCKET_NAME}" is ready.`);
+    } else {
+      console.log(`[supabase] Storage bucket "${BUCKET_NAME}" not found. Attempting to create it...`);
+      const { error: createError } = await supabase.storage.createBucket(BUCKET_NAME, {
+        public: true, // As per init.sql, this should be public
+      });
+
+      if (createError) {
+        console.error(`[supabase] FATAL: Failed to create bucket "${BUCKET_NAME}":`, createError.message);
+        process.exit(1);
+      }
+      console.log(`[supabase] Bucket "${BUCKET_NAME}" created successfully. The application can now handle uploads.`);
+    }
+    console.log('[supabase] Bucket verification complete.');
+  } catch (err) {
+    console.error('[supabase] FATAL: A critical error occurred during Supabase initialization:', err);
+    process.exit(1);
+  }
+})();
+
 
 // Prometheus metrics
+const client = require('prom-client');
 client.collectDefaultMetrics();
+const httpRequestDuration = new client.Histogram({
+  name: 'http_request_duration_seconds',
+  help: 'Duration of HTTP requests in seconds',
+  labelNames: ['method', 'route', 'code'],
+  buckets: [0.005,0.01,0.025,0.05,0.1,0.25,0.5,1,2,5]
+});
 
 // Import routes
 const authRoutes = require('./routes/authRoutes');
@@ -39,11 +89,100 @@ const publicIntegrationRoutes = require('./routes/publicIntegrationRoutes');
 
 // Import middleware
 const errorHandler = require('./middleware/errorHandler');
+const logger = require('./utils/logger');
 
 const app = express();
 
-// Setup Express middleware
-require('./config/express')(app);
+// Request timing metric
+app.use((req, res, next) => {
+  const end = httpRequestDuration.startTimer();
+  res.on('finish', () => {
+    end({ method: req.method, route: req.route ? req.route.path : req.path, code: res.statusCode });
+  });
+  next();
+});
+
+// Sentry request handler
+if (Sentry) {
+  app.use(Sentry.Handlers.requestHandler());
+}
+
+// Trust proxy for accurate IP addresses
+app.set('trust proxy', 1);
+
+// Security middleware
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      imgSrc: ["'self'", "data:", "https:", "http:"],
+      scriptSrc: ["'self'"]
+    }
+  },
+  crossOriginEmbedderPolicy: false
+}));
+
+// CORS configuration
+const corsOptions = {
+  origin: function (origin, callback) {
+    const allowedOrigins = [
+      'https://fraarchi.github.io',
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'http://127.0.0.1:5500'
+    ];
+    
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+
+// Compression (gzip)
+app.use(compression());
+
+// Logging
+app.use(morgan('combined', {
+  stream: {
+    write: message => logger.info(message.trim())
+  }
+}));
+
+// Body parsing
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000, // 15 minutes
+  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 100,
+  message: {
+    error: 'Too many requests from this IP, please try again later.'
+  },
+  standardHeaders: true,
+  legacyHeaders: false
+});
+
+app.use('/api/', limiter);
+
+// Speed limiter for additional protection
+const speedLimiter = slowDown({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  delayAfter: 50, // Allow 50 requests per windowMs without delay
+  delayMs: () => 500, // Add 500ms delay per request after delayAfter
+  maxDelayMs: 20000, // Maximum delay of 20 seconds
+  validate: { delayMs: false } // Disable deprecation warning
+});
+
+app.use('/api/', speedLimiter);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
@@ -102,25 +241,26 @@ app.use('*', (req, res) => {
 // Global error handler
 app.use(errorHandler);
 
-// Graceful shutdown handlers
-const shutdown = (signal) => {
-  logger.info(`${signal} received, shutting down gracefully`);
+// Graceful shutdown
+process.on('SIGTERM', () => {
+  logger.info('SIGTERM received, shutting down gracefully');
   process.exit(0);
-};
+});
 
-process.on('SIGTERM', () => shutdown('SIGTERM'));
-process.on('SIGINT', () => shutdown('SIGINT'));
+process.on('SIGINT', () => {
+  logger.info('SIGINT received, shutting down gracefully');
+  process.exit(0);
+});
 
-// Unhandled rejections and exceptions
+// Unhandled promise rejections
 process.on('unhandledRejection', (err) => {
   logger.error('Unhandled Promise Rejection:', err);
-  if (Sentry) Sentry.captureException(err);
   process.exit(1);
 });
 
+// Uncaught exceptions
 process.on('uncaughtException', (err) => {
   logger.error('Uncaught Exception:', err);
-  if (Sentry) Sentry.captureException(err);
   process.exit(1);
 });
 

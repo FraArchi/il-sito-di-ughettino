@@ -1,25 +1,50 @@
 const autocannon = require('autocannon');
-const { startServer } = require('../../src/server');
+const { spawn } = require('child_process');
+const path = require('path');
 
 describe('Performance Benchmarks', () => {
-  let server;
+  let serverProcess;
   const SERVER_URL = 'http://localhost:3000';
-
+  
   beforeAll(async () => {
-    try {
-      console.log('Starting server for performance tests...');
-      server = await startServer();
-      console.log('Server started for performance tests.');
-    } catch (error) {
-      console.error('Failed to start server for performance tests:', error);
-      throw new Error(`Server failed to start for performance tests: ${error.message}`);
-    }
+    // Start the server for benchmarking
+    console.log('Starting server for performance tests...');
+    
+    serverProcess = spawn('npm', ['start'], {
+      cwd: path.join(__dirname, '../..'),
+      stdio: 'pipe'
+    });
+
+    // Wait for server to start
+    await new Promise((resolve, reject) => {
+      const timeout = setTimeout(() => {
+        reject(new Error('Server start timeout'));
+      }, 30000);
+
+      serverProcess.stdout.on('data', (data) => {
+        if (data.toString().includes('Server running') || 
+            data.toString().includes('listening')) {
+          clearTimeout(timeout);
+          resolve();
+        }
+      });
+
+      serverProcess.on('error', reject);
+    });
   }, 35000);
 
   afterAll(async () => {
-    if (server) {
-      await new Promise(resolve => server.close(resolve));
-      console.log('Server stopped for performance tests.');
+    if (serverProcess) {
+      serverProcess.kill('SIGTERM');
+      
+      // Wait for graceful shutdown
+      await new Promise(resolve => {
+        serverProcess.on('close', resolve);
+        setTimeout(() => {
+          serverProcess.kill('SIGKILL');
+          resolve();
+        }, 5000);
+      });
     }
   });
 

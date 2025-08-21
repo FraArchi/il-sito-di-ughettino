@@ -168,7 +168,27 @@ describe('Ugo Chat API Integration Tests', () => {
       process.env.NODE_ENV = originalEnv;
     });
 
-    // test('should handle rate limiting', ... ) - This test is removed as rate limiting is disabled in the test environment.
+    test('should handle rate limiting', async () => {
+      // Make many rapid requests to trigger rate limiting
+      const requests = Array(35).fill(0).map((_, i) => 
+        request(app)
+          .post('/api/ugo/chat')
+          .send({
+            user_id: 'test-user',
+            session_id: 'test-session', 
+            message: `Message ${i}`
+          })
+      );
+
+      const responses = await Promise.allSettled(requests);
+      
+      // Some requests should be rate limited (429)
+      const rateLimitedResponses = responses.filter(
+        result => result.status === 'fulfilled' && result.value.status === 429
+      );
+
+      expect(rateLimitedResponses.length).toBeGreaterThan(0);
+    }, 15000); // Timeout increased for rate limit test
 
     test('should return error response for model service failure', async () => {
       // Mock axios to fail

@@ -78,11 +78,7 @@ async function startServer() {
     return server;
   } catch (error) {
     logger.error('❌ Failed to start server:', error);
-    if (process.env.NODE_ENV !== 'test') {
-      process.exit(1);
-    } else {
-      throw error;
-    }
+    process.exit(1);
   }
 }
 
